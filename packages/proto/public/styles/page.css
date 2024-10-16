@@ -1,4 +1,14 @@
-h1 {
-    background-color: #ffffdf;
-    color: #55554a;
+body {
+    background-color: var(--color-background-page);
+    color: var(--ccolor-text-main);
+}
+
+.item {
+    background: var(--color-background-page-alt);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
 }
