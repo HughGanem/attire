@@ -1,19 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        
+        <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap"
+        rel="stylesheet" />
         <link rel="stylesheet" href="/styles/tokens.css" />
         <link rel="stylesheet" href="/styles/page.css" />
     </head>
+
     <body>
-        <h1>Welcome, Hugh!</h1>
+        <div class="profile-container">
+            <svg class="icon">
+                <use href="icons/accounts.svg#icon-profile" />
+            </svg>
+            <h1 class="profile-name">Welcome, Hugh Ganem</h1>
+        </div>
         
-        <h3>Budget</h3>
+        <h2>Budget</h2>
         <p>$250.00</p>
         
-        <h3>Wish Lists</h3>
-        <ul>
-            <li data-budget=" - Budget: $320"><a href="winter.html">Winter Items</a></li>
-            <li data-budget=" - Budget: $400"><a href="beach_trip.html">Beach Trip</a></li>
-        </ul>
+        <h2>Wish Lists</h2>
+
+        <div class="item">
+            <svg class="icon">
+                <use href="icons/accounts.svg#icon-list" />
+            </svg>
+            <a href="winter.html">Winter Items</a>
+        </div>
+
+        <div class="item">
+            <svg class="icon">
+                <use href="icons/accounts.svg#icon-list" />
+            </svg>
+            <a href="beach_trip.html">Beach Trip</a>
+        </div>
+
     </body>
 </html>

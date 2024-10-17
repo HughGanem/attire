@@ -1,6 +1,42 @@
 body {
     background-color: var(--color-background-page);
-    color: var(--ccolor-text-main);
+    color: var(--color-text-main); 
+    font-family: var(--font-main);
+    margin: 0; 
+    padding: 20px;
+}
+
+h1 {
+    font-family: var(--font-main);
+    font-size: xx-large;
+    color: var(--color-text-main);
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-family: var(--font-main);
+    font-size: xx-large;
+    color: var(--color-text-main);
+}
+
+h3 {
+    font-family: var(--font-main);
+    font-size: large;
+    color: var(--color-text-main);
+}
+
+p {
+    font-family: var(--font-main);
+    font-size: large;
+    color: var(--color-text-main);
+}
+
+ul {
+    font-family: var(--font-main);
+    font-size: large;
+    color: var(--color-text-main);
+    padding-left: 20px;
+    margin-bottom: 20px;
 }
 
 .item {
@@ -11,4 +47,33 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
+}
+
+.item h2 {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.item p {
+    margin: 0;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+.icon {
+    width: 120px;
+    height: 120px;
+}
+
+svg.icon {
+    display: inline;
+    width: 50px;
+    height: 50px;
+    vertical-align: top;
+    fill: black;
 }
