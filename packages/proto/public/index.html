@@ -10,34 +10,45 @@
         rel="stylesheet" />
         <link rel="stylesheet" href="/styles/tokens.css" />
         <link rel="stylesheet" href="/styles/page.css" />
+        <link rel="stylesheet" href="/styles/reset.css" />
     </head>
 
     <body>
-        <div class="profile-container">
+        <header>
+            <a href="index.html">
+              <h1 class="logo">DreamCart</h1>
+            </a>
             <svg class="icon">
                 <use href="icons/accounts.svg#icon-profile" />
             </svg>
-            <h1 class="profile-name">Welcome, Hugh Ganem</h1>
-        </div>
+        </header>
         
         <h2>Budget</h2>
         <p>$250.00</p>
         
         <h2>Wish Lists</h2>
 
-        <div class="item">
-            <svg class="icon">
-                <use href="icons/accounts.svg#icon-list" />
-            </svg>
-            <a href="winter.html">Winter Items</a>
+        <div class="wishlist-container">
+            <div class="wishlist">
+                <svg class="icon">
+                    <use href="icons/accounts.svg#icon-list" />
+                </svg>
+                <a href="winter.html">Winter Items</a>
+            </div>
+        
+            <div class="wishlist">
+                <svg class="icon">
+                    <use href="icons/accounts.svg#icon-list" />
+                </svg>
+                <a href="beach_trip.html">Beach Trip</a>
+            </div>
+        
+            <div class="wishlist">
+                <svg class="icon">
+                    <use href="icons/accounts.svg#icon-list" />
+                </svg>
+                <a href="summer.html">Summer Items</a>
+            </div>
         </div>
-
-        <div class="item">
-            <svg class="icon">
-                <use href="icons/accounts.svg#icon-list" />
-            </svg>
-            <a href="beach_trip.html">Beach Trip</a>
-        </div>
-
     </body>
 </html>
