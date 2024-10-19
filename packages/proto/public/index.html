@@ -10,6 +10,8 @@
         rel="stylesheet" />
         <link rel="stylesheet" href="/styles/tokens.css" />
         <link rel="stylesheet" href="/styles/page.css" />
+        <link rel="stylesheet" href="/styles/budget.css" />
+        <link rel="stylesheet" href="/styles/homepage.css" />
         <link rel="stylesheet" href="/styles/reset.css" />
     </head>
 
@@ -23,32 +25,29 @@
             </svg>
         </header>
         
-        <h2>Budget</h2>
-        <p>$250.00</p>
+        <div class="budget-container">
+            <h2>Budget</h2>
+            <p>$250.00</p>
+        </div>
         
-        <h2>Wish Lists</h2>
+        <div class="wishlist-text">
+            <h2>Wish Lists</h2>
+        </div>
 
         <div class="wishlist-container">
-            <div class="wishlist">
-                <svg class="icon">
-                    <use href="icons/accounts.svg#icon-list" />
-                </svg>
-                <a href="winter.html">Winter Items</a>
-            </div>
+            <a href="wishlist_winter.html" class="wishlist-link">
+                <div class="wishlist">
+                    <span class="wishlist-title">Winter Items</span>
+                    <img src="pictures/winter_photo.png" alt="Winter Items" class="wishlist-image">
+                </div>
+            </a>
         
-            <div class="wishlist">
-                <svg class="icon">
-                    <use href="icons/accounts.svg#icon-list" />
-                </svg>
-                <a href="beach_trip.html">Beach Trip</a>
-            </div>
-        
-            <div class="wishlist">
-                <svg class="icon">
-                    <use href="icons/accounts.svg#icon-list" />
-                </svg>
-                <a href="summer.html">Summer Items</a>
-            </div>
+            <a href="wishlist_summer.html" class="wishlist-link">
+                <div class="wishlist">
+                    <span class="wishlist-title">Beach Trip</span>
+                    <img src="pictures/tropical_photo.png" alt="Beach Trip" class="wishlist-image">
+                </div>
+            </a>
         </div>
     </body>
 </html>
