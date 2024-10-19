@@ -1,46 +1,52 @@
-.wishlist-container {
+.item-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin: 20px auto;
 }
 
-.wishlist-link {
+.item-link {
     text-decoration: none;
     color: var(--color-text-main);
-    margin: 10px;
+    margin: 10px 0;
 }
 
-.wishlist {
+.item {
     background-color: var(--color-background-page-alt);
     border-radius: 25px;
-    height: 500px;
+    height: 600px;
     width: 500px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 20px;
-    margin: 10px;
+    margin: 10px auto;
 }
 
-.wishlist-title {
+.item-title {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 40px;
     margin: 10px 0;
     text-decoration: none;
 }
 
-.wishlist-image {
-    width: 100%;
-    height: 400px;
+.item-image {
+    width: 75%;
+    height: 450px;
     object-fit: cover;
     border-radius: 25px;
 }
 
-.wishlist:hover {
+.item-price {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.item:hover {
     box-shadow: 0 0 20px var(--color-header);
     transform: scale(1.05);
 }
 
-.wishlist:hover img {
+.item:hover img {
     transform: scale(1.05);
 }
