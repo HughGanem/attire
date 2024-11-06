@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -5,9 +6,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="/styles/tokens.css" />
         <link rel="stylesheet" href="/styles/page.css" />
-        <link rel="stylesheet" href="styles/start_page.css" />
+        <link rel="stylesheet" href="/styles/tokens.css" />
+        <link rel="stylesheet" href="styles/homepage.css" />
+        <link rel="stylesheet" href="styles/back_button.css" />
         <script type="importmap">
             {
               "imports": {
@@ -17,9 +19,11 @@
         </script>
         <script type="module">
             import { define } from "@calpoly/mustang";
+            import { WishlistCardElement } from "/scripts/wishlist-card.js";
             import { HeaderElement } from "/scripts/header.js";
           
             define({
+              "wishlist-card": WishlistCardElement,
               "header-element": HeaderElement
             });
         </script>
@@ -27,11 +31,22 @@
     
     <body>
         <header-element></header-element>
-        
-        <div class="start-button-container">
-            <a href="home.html">
-                <span class="start-text">Create a wishlist!</span>
+
+        <div class="wishlist-container">
+            <a href="/summer_wishlist.html">
+                <wishlist-card>
+                    <span slot="wishlist-title">Beach Trip</span>
+                    <img slot="wishlist-image" src="pictures/tropical_photo.png" alt="Winter Items" />
+                </wishlist-card>
             </a>
+            
+            <a href="/winter_wishlist.html">
+                <wishlist-card>
+                    <span slot="wishlist-title">Winter Items</span>
+                    <img slot="wishlist-image" src="pictures/winter_photo.png" alt="Beach Trip" />
+                </wishlist-card>   
+            </a>     
         </div>
     </body>
+
 </html>

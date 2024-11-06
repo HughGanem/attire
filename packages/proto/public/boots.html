@@ -6,30 +6,39 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
+        <link rel="stylesheet" href="/styles/page.css" />
         <link rel="stylesheet" href="/styles/tokens.css" />
         <link rel="stylesheet" href="/styles/header.css" />
-        <link rel="stylesheet" href="/styles/item.css" />
+        <script type="importmap">
+            {
+              "imports": {
+                "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+              }
+            }
+        </script>
+        <script type="module">
+            import { define } from "@calpoly/mustang";
+            import { ItemElement } from "./scripts/item.js";
+            import { HeaderElement } from "/scripts/header.js";
+          
+            define({
+              "item-element": ItemElement,
+              "header-element": HeaderElement
+            });
+        </script>
     </head>
     <body>
-        <header>
-            <a href="index.html">
-              <h1 class="logo">DreamCart</h1>
-            </a>
-            <svg class="icon">
-                <use href="icons/accounts.svg#icon-profile" />
-            </svg>
-        </header>
+        <header-element></header-element>
 
-        <div class="information-container">
-            <span class="information-title"><strong>Snow Boots</strong></span>
-            <img src="pictures/boots.png" alt="Boots" class="information-image">
-            <p class="detail"><strong>Price:</strong> $95.00</p>
-            <p class="detail"><strong>Size:</strong> 10</p>
-            <p class="detail"><strong>Brand:</strong> The Snowman</p>
-            <p class="detail"><strong>Store:</strong> www.snowman.com</p>
-            <p class="detail"><strong>Style:</strong> heavy duty boots</p>
-            <p class="detail"><strong>Type of Clothing:</strong> shoes</p>
-        </div>        
-
+        <item-element>
+            <span slot="item-name">Snow Boots</span>
+            <img slot="item-image" src="pictures/boots.png" />
+            <span slot="item-price">$95.00</span>
+            <span slot="item-size">Men's 10</span>
+            <span slot="item-brand">The Snowman</span>
+            <span slot="item-store">www.snowman.com</span>
+            <span slot="item-style">Heavy Duty Boots</span>
+            <span slot="item-type">Shoes</span>
+        </item-element>
     </body>
 </html>

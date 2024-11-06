@@ -6,30 +6,38 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
+        <link rel="stylesheet" href="/styles/page.css" />
         <link rel="stylesheet" href="/styles/tokens.css" />
-        <link rel="stylesheet" href="/styles/header.css" />
-        <link rel="stylesheet" href="/styles/item.css" />
+        <script type="importmap">
+            {
+              "imports": {
+                "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+              }
+            }
+        </script>
+        <script type="module">
+            import { define } from "@calpoly/mustang";
+            import { ItemElement } from "/scripts/item.js";
+            import { HeaderElement } from "/scripts/header.js";
+          
+            define({
+              "item-element": ItemElement,
+              "header-element": HeaderElement
+            });
+        </script>
     </head>
     <body>
-        <header>
-            <h1>
-                <a href="index.html">DreamCart</a>
-            </h1>
-            <svg class="icon">
-                <use href="icons/accounts.svg#icon-profile" />
-            </svg>
-        </header>
+      <header-element></header-element>
 
-        <div class="information-container">
-            <span class="information-title"><strong>Black Sunglasses</strong></span>
-            <img src="pictures/sunglass.png" alt="Sunglass" class="information-image">
-            <p class="detail"><strong>Price:</strong> $166.00</p>
-            <p class="detail"><strong>Size:</strong> Small</p>
-            <p class="detail"><strong>Brand:</strong> Ray Band</p>
-            <p class="detail"><strong>Store:</strong> www.rayband.com</p>
-            <p class="detail"><strong>Style:</strong> Aviator</p>
-            <p class="detail"><strong>Type of Clothing:</strong> Accessory</p>
-        </div>        
-
+      <item-element>
+        <span slot="item-name">Black Sunglasses</span>
+        <img slot="item-image" src="pictures/sunglass.png" />
+        <span slot="item-price">$166.00</span>
+        <span slot="item-size">Small</span>
+        <span slot="item-brand">Ray Band</span>
+        <span slot="item-store">www.rayband.com</span>
+        <span slot="item-style">Aviator</span>
+        <span slot="item-type">Accessory</span>
+      </item-element>
     </body>
 </html>

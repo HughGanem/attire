@@ -1,31 +1,5 @@
 body {
     margin: 0;
     padding: 0;
-}
-
-header {
-    color: white;
-    background-color: #011f4b;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 120px;
-}
-
-header h1 {
-    margin: 0;
-    text-align: left;
-    font-family: 'Nunito Sans', sans-serif;;
-    font-size: 50px;
-}
-
-header a {
-    text-decoration: none;
-    color: inherit;
-}
-
-header svg.icon {
-    width: 80px;
-    height: 80px;
-    fill: white;
+    background-color: var(--color-background-page)
 }

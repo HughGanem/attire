@@ -1,48 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head></head>
+    <head>
         <meta charset="utf-8" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="styles/tokens.css" />
-        <link rel="stylesheet" href="styles/header.css" />
-        <link rel="stylesheet" href="styles/budget.css" />
-        <link rel="stylesheet" href="styles/wishlist_items.css" />
+        <link rel="stylesheet" href="/styles/page.css" />
+        <link rel="stylesheet" href="/styles/tokens.css" />
+        <link rel="stylesheet" href="/styles/wishlist_page.css" />
+        <script type="importmap">
+            {
+              "imports": {
+                "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+              }
+            }
+        </script>
+        <script type="module">
+            import { define } from "@calpoly/mustang";
+            import { ItemCardElement } from "/scripts/item-card.js";
+            import { HeaderElement } from "/scripts/header.js";
+            import { HomeButtonElement } from "/scripts/home-button.js";
+            import { BudgetElement } from "/scripts/budget.js";
+            import { WishlistTitleElement } from "/scripts/wishlist-title.js";
+          
+            define({
+              "item-card": ItemCardElement,
+              "header-element": HeaderElement,
+              "home-button": HomeButtonElement,
+              "budget-element": BudgetElement,
+              "title-element": WishlistTitleElement
+            });
+        </script>
     </head>
 
     <body>
-        <header>
-            <h1>
-                <a href="index.html">DreamCart</a>
-            </h1>
-            <svg class="icon">
-                <use href="icons/accounts.svg#icon-profile" />
-            </svg>
-        </header>
-
-        <div class="budget-container">
-            <h1>Budget:</h1>
-            <p>$250.00</p>
+        <header-element></header-element>
+        <div class="tool-bar">
+            <home-button></home-button>
+            <title-element>
+                <span slot="wishlist-name">Winter Items</span>
+            </title-element>
+            <budget-element>
+                <span slot="wishlist-budget">250.00</span>
+            </budget-element>
         </div>
 
         <div class="items-container">
-            <a href="boots.html" class="item-link">
-                <div class="item">
-                    <h2 class="item-title">Winter Boots</h2>
-                    <img src="pictures/boots.png" alt="Winter Boots" class="item-image">
-                    <p class="item-price">Price: $95.00</p>
-                </div>
+            <a href="/boots.html">
+                <item-card>
+                    <span slot="product-title">Winter Boots</span>
+                    <img slot="item-image" src="pictures/boots.png" alt="Winter Boots" />
+                    <span slot="product-price">$225.00</span>
+                </item-card>
             </a>
-        
-            <a href="jacket.html" class="item-link">
-                <div class="item">
-                    <h2 class="item-title">Heavy jacket</h2>
-                    <img src="pictures/jacket.png" alt="Heavy Jacket" class="item-image">
-                    <p class="item-price">Price: $45.00</p>
-                </div>
-            </a>
+            
+            <a href="/jacket.html"></a>
+                <item-card>
+                    <span slot="product-title">Heavy jacket</span>
+                    <img slot="item-image" src="pictures/jacket.png" alt="Heavy jacket" />
+                    <span slot="product-price">$45.00</span>
+                </item-card>    
+            </a>        
         </div>
     </body>
 </html>
