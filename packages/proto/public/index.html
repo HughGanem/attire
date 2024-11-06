@@ -5,23 +5,33 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="/styles/tokens.css" />
-        <link rel="stylesheet" href="styles/header.css" />
-        <link rel="stylesheet" href="styles/start_page.css" />
+        <link rel="stylesheet" href="./styles/tokens.css" />
+        <link rel="stylesheet" href="./styles/page.css" />
+        <link rel="stylesheet" href="./styles/start_page.css" />
+        <script type="importmap">
+            {
+              "imports": {
+                "@calpoly/mustang": "https://unpkg.com/@calpoly/mustang"
+              }
+            }
+        </script>
+        <script type="module">
+            import { define } from "@calpoly/mustang";
+            import { HeaderElement } from "/scripts/header.js";
+          
+            define({
+              "header-element": HeaderElement
+            });
+
+            HeaderElement.initializeOnce();
+        </script>
     </head>
     
     <body>
-        <header>
-            <h1>
-                <a href="index.html">DreamCart</a>
-            </h1>
-            <svg class="icon">
-                <use href="icons/accounts.svg#icon-profile" />
-            </svg>
-        </header>
+        <header-element></header-element>
         
         <div class="start-button-container">
-            <a href="wishlists_home.html">
+            <a href="/wishlists">
                 <span class="start-text">Create a wishlist!</span>
             </a>
         </div>
