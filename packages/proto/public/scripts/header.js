@@ -15,7 +15,7 @@ export class HeaderElement extends HTMLElement {
                 <use href="icons/accounts.svg#icon-profile" />
             </svg>
             <label>
-                <input type="checkbox" autocomplete="off" />
+                <input id="dark-mode-toggle" type="checkbox" autocomplete="off" />
                 Dark mode
             </label>
         </header>
@@ -23,7 +23,7 @@ export class HeaderElement extends HTMLElement {
   
   static styles = css`
     header {
-        color: var(--white);
+        color: var(--header-text);
         background-color: var(--color-header);
         display: flex;
         justify-content: space-between;
@@ -48,13 +48,13 @@ export class HeaderElement extends HTMLElement {
     .logo-container .logo-icon {
         width: 80px;
         height: 80px;
-        fill: white;
+        fill: var(--header-text);
     }
 
     .profile-icon {
         width: 100px;
         height: 100px;
-        fill: white;
+        fill: var(--header-text);
     }`;
 
   constructor() {
@@ -62,5 +62,28 @@ export class HeaderElement extends HTMLElement {
     shadow(this)
       .template(HeaderElement.template)
       .styles(reset.styles, HeaderElement.styles);
+
+    const darkModeToggle = this.shadowRoot.querySelector("#dark-mode-toggle");
+
+    darkModeToggle.addEventListener("change", (event) => {
+      const darkModeEvent = new CustomEvent("darkmode:toggle", {
+        detail: { enabled: event.target.checked },
+        bubbles: true,
+        composed: true,
+      });
+      this.dispatchEvent(darkModeEvent);
+      event.stopPropagation();
+    });
+  }
+
+  static isInitialized = false;
+
+  static initializeOnce() {
+    if (HeaderElement.isInitialized) return;
+    HeaderElement.isInitialized = true;
+    
+    document.body.addEventListener("darkmode:toggle", (event) => {
+      document.body.classList.toggle("dark-mode", event.detail.enabled);
+    });
   }
 }

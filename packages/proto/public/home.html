@@ -6,10 +6,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="/styles/page.css" />
-        <link rel="stylesheet" href="/styles/tokens.css" />
-        <link rel="stylesheet" href="styles/homepage.css" />
-        <link rel="stylesheet" href="styles/back_button.css" />
+        <link rel="stylesheet" href="./styles/page.css" />
+        <link rel="stylesheet" href="./styles/tokens.css" />
+        <link rel="stylesheet" href="./styles/homepage.css" />
         <script type="importmap">
             {
               "imports": {
@@ -26,6 +25,7 @@
               "wishlist-card": WishlistCardElement,
               "header-element": HeaderElement
             });
+            HeaderElement.initializeOnce();
         </script>
     </head>
     

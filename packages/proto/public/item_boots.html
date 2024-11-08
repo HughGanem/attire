@@ -6,9 +6,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="/styles/page.css" />
-        <link rel="stylesheet" href="/styles/tokens.css" />
-        <link rel="stylesheet" href="/styles/header.css" />
+        <link rel="stylesheet" href="./styles/page.css" />
+        <link rel="stylesheet" href="./styles/tokens.css" />
         <script type="importmap">
             {
               "imports": {
@@ -25,6 +24,7 @@
               "item-element": ItemElement,
               "header-element": HeaderElement
             });
+            HeaderElement.initializeOnce();
         </script>
     </head>
     <body>
