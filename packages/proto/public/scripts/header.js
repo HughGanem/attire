@@ -14,6 +14,10 @@ export class HeaderElement extends HTMLElement {
             <svg class="icon profile-icon">
                 <use href="icons/accounts.svg#icon-profile" />
             </svg>
+            <label>
+                <input type="checkbox" autocomplete="off" />
+                Dark mode
+            </label>
         </header>
     </template>`;
   

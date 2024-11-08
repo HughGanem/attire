@@ -8,7 +8,6 @@
 
         <link rel="stylesheet" href="/styles/page.css" />
         <link rel="stylesheet" href="/styles/tokens.css" />
-        <link rel="stylesheet" href="/styles/budget.css" />
         <link rel="stylesheet" href="/styles/wishlist_page.css" />
         <script type="importmap">
             {
@@ -21,24 +20,34 @@
             import { define } from "@calpoly/mustang";
             import { ItemCardElement } from "/scripts/item-card.js";
             import { HeaderElement } from "/scripts/header.js";
+            import { HomeButtonElement } from "/scripts/home-button.js";
+            import { BudgetElement } from "/scripts/budget.js";
+            import { WishlistTitleElement } from "/scripts/wishlist-title.js";
           
             define({
               "item-card": ItemCardElement,
-              "header-element": HeaderElement
+              "header-element": HeaderElement,
+              "home-button": HomeButtonElement,
+              "budget-element": BudgetElement,
+              "title-element": WishlistTitleElement
             });
         </script>
     </head>
 
     <body>
         <header-element></header-element>
-
-        <div class="budget-container">
-            <h1>Budget:</h1>
-            <p>$450.00</p>
+        <div class="tool-bar">
+            <home-button></home-button>
+            <title-element>
+                <span slot="wishlist-name">Winter Items</span>
+            </title-element>
+            <budget-element>
+                <span slot="wishlist-budget">250.00</span>
+            </budget-element>
         </div>
 
         <div class="items-container">
-            <a href="/hat.html">
+            <a href="/item_hat.html">
                 <item-card href="/hat.html">
                     <span slot="product-title">New York Hat</span>
                     <img slot="item-image" src="pictures/hat.png" alt="New York Hat" />
@@ -46,7 +55,7 @@
                 </item-card>
             <a>
             
-            <a href="/flamingo_swimsuit.html">
+            <a href="/item_flamingo_swimsuit.html">
                 <item-card>
                     <span slot="product-title">Flamingo Swimsuit</span>
                     <img slot="item-image" src="pictures/swimsuit.png" alt="Flamingo Swimsuit" />
@@ -54,7 +63,7 @@
                 </item-card>
             </a>
             
-            <a href="/sunglass.html">
+            <a href="/item_sunglass.html">
                 <item-card>
                     <span slot="product-title">Black Sunglasses</span>
                     <img slot="item-image" src="pictures/sunglass.png" alt="Black Sunglasses" />
