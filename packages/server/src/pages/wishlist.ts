@@ -1,6 +1,6 @@
 import { css, html } from "@calpoly/mustang/server";
 import { Wishlist, Item } from "../models";
-import renderPage from "./renderPage"; // generic page renderer
+import renderPage from "./renderPage";
 
 export class WishlistPage {
   data: Wishlist;
@@ -20,8 +20,8 @@ export class WishlistPage {
             --page-grids: 8;
             @media screen and (max-width: 48rem) {
               --page-grids: 6;
-          }
-        }`
+            }
+          }`
       ],
       scripts: [
         `

@@ -49,8 +49,8 @@ class WishlistPage {
             --page-grids: 8;
             @media screen and (max-width: 48rem) {
               --page-grids: 6;
-          }
-        }`
+            }
+          }`
       ],
       scripts: [
         `

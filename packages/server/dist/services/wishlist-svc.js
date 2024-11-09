@@ -18,42 +18,32 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var wishlist_svc_exports = {};
 __export(wishlist_svc_exports, {
-  getWishlist: () => getWishlist
+  default: () => wishlist_svc_default
 });
 module.exports = __toCommonJS(wishlist_svc_exports);
-const wishlists = {
-  summer: {
-    name: "Wants for the Summer",
-    budget: 1e3,
-    imageUrl: "https://t3.ftcdn.net/jpg/02/43/25/90/360_F_243259090_crbVsAqKF3PC2jk2eKiUwZHBPH8Q6y9Y.jpg",
-    items: [
-      {
-        name: "New York Hat",
-        price: 100,
-        size: "Medium",
-        brand: "Mad Haters",
-        store: "New Life Clothing",
-        style: "Baseball Cap",
-        type: "Accessory",
-        imageUrl: "https://www.pngall.com/wp-content/uploads/15/Yankee-Hat-PNG-File.png"
-      },
-      {
-        name: "Beach Shorts",
-        price: 50,
-        size: "Large",
-        brand: "BeachVibe",
-        store: "Surf Shack",
-        style: "Casual",
-        type: "Shorts",
-        imageUrl: "https://www.shopcoveusa.com/cdn/shop/files/BlackShortsFrontFinal2_1_1024x1024.jpg?v=1718226693"
-      }
-    ]
-  }
-};
-function getWishlist(_) {
-  return wishlists["summer"];
+var import_mongoose = require("mongoose");
+const WishlistSchema = new import_mongoose.Schema(
+  {
+    listId: { type: String, required: true, trim: true, unique: true },
+    name: { type: String, required: true, trim: true },
+    budget: { type: Number, required: true, trim: true },
+    imageUrl: { type: String, required: true, trim: true },
+    items: [{ type: import_mongoose.Schema.Types.ObjectId, ref: "Items", default: [] }]
+  },
+  { collection: "dc_wishlists" }
+);
+const WishlistModel = (0, import_mongoose.model)("Wishlist", WishlistSchema);
+async function index() {
+  return WishlistModel.find().lean();
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  getWishlist
-});
+async function get(listId) {
+  try {
+    const list = await WishlistModel.findOne({ listId }).lean();
+    if (!list) throw new Error(`${listId} Not Found`);
+    return list;
+  } catch (err) {
+    console.error(err);
+    throw new Error(`Error fetching wishlist with ID ${listId}: ${err}`);
+  }
+}
+var wishlist_svc_default = { index, get };

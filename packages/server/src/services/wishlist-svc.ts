@@ -1,36 +1,34 @@
-import { ClothesSize, ItemType } from "models";
+import { Schema, model, Document } from "mongoose";
+import { Wishlist } from "../models/wishlist"; // Assuming this interface matches the schema
 
-const wishlists = {
-    summer: {
-        name: "Wants for the Summer",
-        budget: 1000,
-        imageUrl: "https://t3.ftcdn.net/jpg/02/43/25/90/360_F_243259090_crbVsAqKF3PC2jk2eKiUwZHBPH8Q6y9Y.jpg",
-        items: [
-            {
-                name: "New York Hat",
-                price: 100,
-                size: "Medium" as ClothesSize,
-                brand: "Mad Haters",
-                store: "New Life Clothing",
-                style: "Baseball Cap",
-                type: "Accessory" as ItemType,
-                imageUrl: "https://www.pngall.com/wp-content/uploads/15/Yankee-Hat-PNG-File.png"
-            },
-            {
-                name: "Beach Shorts",
-                price: 50,
-                size: "Large" as ClothesSize,
-                brand: "BeachVibe",
-                store: "Surf Shack",
-                style: "Casual",
-                type: "Shorts" as ItemType,
-                imageUrl: "https://www.shopcoveusa.com/cdn/shop/files/BlackShortsFrontFinal2_1_1024x1024.jpg?v=1718226693"
-            }
-        ]
-    }
+interface WishlistDocument extends Wishlist, Document {}
+
+const WishlistSchema = new Schema<WishlistDocument>(
+  {
+    listId: { type: String, required: true, trim: true, unique: true },
+    name: { type: String, required: true, trim: true },
+    budget: { type: Number, required: true, trim: true },
+    imageUrl: { type: String, required: true, trim: true },
+    items: [{ type: Schema.Types.ObjectId, ref: "Items", default: [] }],
+  },
+  { collection: "dc_wishlists" }
+);
+
+const WishlistModel = model<WishlistDocument>("Wishlist", WishlistSchema);
+
+async function index(): Promise<Wishlist[]> {
+  return WishlistModel.find().lean();
 }
 
-export function getWishlist(_: string) {
-    // return Venice regardless of which destination is requested
-    return wishlists["summer"];
+async function get(listId: string): Promise<Wishlist | null> {
+  try {
+    const list = await WishlistModel.findOne({ listId }).lean();
+    if (!list) throw new Error(`${listId} Not Found`);
+    return list;
+  } catch (err) {
+    console.error(err);
+    throw new Error(`Error fetching wishlist with ID ${listId}: ${err}`);
   }
+}
+
+export default { index, get };

@@ -22,11 +22,13 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
-var import_wishlist_svc = require("./services/wishlist-svc");
+var import_mogo = require("./services/mogo");
 var import_wishlist = require("./pages/wishlist");
+var import_wishlist_svc = __toESM(require("./services/wishlist-svc"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
+(0, import_mogo.connect)("dreamin");
 app.use(import_express.default.static(staticDir));
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
@@ -35,11 +37,18 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 app.get(
-  "/wishlist/:listId",
+  "/wishlist/:listid",
   (req, res) => {
-    const { listId } = req.params;
-    const data = (0, import_wishlist_svc.getWishlist)(listId);
-    const page = new import_wishlist.WishlistPage(data);
-    res.set("Content-Type", "text/html").send(page.render());
+    const { listid } = req.params;
+    import_wishlist_svc.default.get(listid).then((data) => {
+      if (data) {
+        res.set("Content-Type", "text/html").send(new import_wishlist.WishlistPage(data).render());
+      } else {
+        res.status(404).send("Wishlist not found");
+      }
+    }).catch((err) => {
+      console.error("Error fetching game:", err);
+      res.status(500).send("Internal Server Error");
+    });
   }
 );
