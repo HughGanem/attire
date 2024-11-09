@@ -7,12 +7,12 @@ export class HeaderElement extends HTMLElement {
         <header>
             <a href="index.html" class="logo-container">
                 <svg class="icon logo-icon">
-                    <use href="icons/accounts.svg#icon-logo" />
+                    <use href="/icons/accounts.svg#icon-logo" />
                 </svg>
                 <h1 class="logo">DreamCart</h1>
             </a>
             <svg class="icon profile-icon">
-                <use href="icons/accounts.svg#icon-profile" />
+                <use href="/icons/accounts.svg#icon-profile" />
             </svg>
             <label>
                 <input id="dark-mode-toggle" type="checkbox" autocomplete="off" />

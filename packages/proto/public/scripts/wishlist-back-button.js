@@ -6,10 +6,10 @@ export class WishlistBackButtonElement extends HTMLElement {
     <template>
       <div class="button-container">
         <svg class="icon">
-          <use href="icons/accounts.svg#icon-list" />
+          <use href="/icons/accounts.svg#icon-list" />
         </svg>
         <svg class="icon">
-          <use href="icons/accounts.svg#icon-back-arrow" />
+          <use href="/icons/accounts.svg#icon-back-arrow" />
         </svg>
       </div>
     </template>`;

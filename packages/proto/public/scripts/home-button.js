@@ -7,7 +7,7 @@ export class HomeButtonElement extends HTMLElement {
       <div class="home-button-container">
         <a href="/home.html">
           <svg class="icon">
-            <use href="icons/accounts.svg#icon-home" />
+            <use href="/icons/accounts.svg#icon-home" />
           </svg>
         </a>
       </div>
