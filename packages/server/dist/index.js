@@ -25,10 +25,13 @@ var import_express = __toESM(require("express"));
 var import_mogo = require("./services/mogo");
 var import_wishlist = require("./pages/wishlist");
 var import_wishlist_svc = __toESM(require("./services/wishlist-svc"));
+var import_wishlists = __toESM(require("./routes/wishlists"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 (0, import_mogo.connect)("dreamin");
+app.use(import_express.default.json());
+app.use("/api/wishlists", import_wishlists.default);
 app.use(import_express.default.static(staticDir));
 app.get("/hello", (req, res) => {
   res.send("Hello, World");

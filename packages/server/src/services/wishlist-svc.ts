@@ -1,34 +1,68 @@
-import { Schema, model, Document } from "mongoose";
-import { Wishlist } from "../models/wishlist"; // Assuming this interface matches the schema
+import { Schema, model } from "mongoose";
+import { Wishlist } from "../models/wishlist";
 
-interface WishlistDocument extends Wishlist, Document {}
-
-const WishlistSchema = new Schema<WishlistDocument>(
+const WishlistSchema = new Schema<Wishlist>(
   {
-    listId: { type: String, required: true, trim: true, unique: true },
+    listid: { type: String, required: true, trim: true, unique: true },
     name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true, trim: true },
     imageUrl: { type: String, required: true, trim: true },
-    items: [{ type: Schema.Types.ObjectId, ref: "Items", default: [] }],
+    items: [
+      {
+        name: { type: String, required: true },
+        price: { type: Number, required: true },
+        size: { type: String, required: true },
+        brand: { type: String, required: true },
+        store: { type: String, required: true },
+        style: { type: String, required: true },
+        type: { type: String, required: true },
+        imageUrl: { type: String, required: true }
+      }
+    ]
   },
   { collection: "dc_wishlists" }
 );
 
-const WishlistModel = model<WishlistDocument>("Wishlist", WishlistSchema);
+const WishlistModel = model<Wishlist>("Wishlist", WishlistSchema);
 
 async function index(): Promise<Wishlist[]> {
   return WishlistModel.find().lean();
 }
 
-async function get(listId: string): Promise<Wishlist | null> {
+async function get(listid: string): Promise<Wishlist | null> {
   try {
-    const list = await WishlistModel.findOne({ listId }).lean();
-    if (!list) throw new Error(`${listId} Not Found`);
+    const list = await WishlistModel.findOne({ listid }).lean();
+    if (!list) throw new Error(`${listid} Not Found`);
     return list;
   } catch (err) {
     console.error(err);
-    throw new Error(`Error fetching wishlist with ID ${listId}: ${err}`);
+    throw new Error(`Error fetching wishlist with ID ${listid}: ${err}`);
   }
 }
 
-export default { index, get };
+function create(json: Wishlist): Promise<Wishlist> {
+  const t = new WishlistModel(json);
+  return t.save();
+}
+
+function update(
+  listid: String,
+  wishlist: Wishlist
+): Promise<Wishlist> {
+  return WishlistModel.findOneAndUpdate({ listid }, wishlist, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${listid} not updated`;
+    else return updated as Wishlist;
+  });
+}
+
+function remove(listid: String): Promise<void> {
+  return WishlistModel.findOneAndDelete({ listid }).then(
+    (deleted) => {
+      if (!deleted) throw `${listid} not deleted`;
+    }
+  );
+}
+
+export default { index, get, create, update, remove };

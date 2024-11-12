@@ -4,12 +4,15 @@ import { connect } from "./services/mogo";
 
 import { WishlistPage } from "./pages/wishlist";
 import Wishlist from "./services/wishlist-svc";
+import wishlists from "./routes/wishlists"
 
 const app = express();
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
 connect("dreamin");
+app.use(express.json());
+app.use("/api/wishlists", wishlists);
 
 app.use(express.static(staticDir));
 

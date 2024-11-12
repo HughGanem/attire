@@ -24,11 +24,22 @@ module.exports = __toCommonJS(wishlist_svc_exports);
 var import_mongoose = require("mongoose");
 const WishlistSchema = new import_mongoose.Schema(
   {
-    listId: { type: String, required: true, trim: true, unique: true },
+    listid: { type: String, required: true, trim: true, unique: true },
     name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true, trim: true },
     imageUrl: { type: String, required: true, trim: true },
-    items: [{ type: import_mongoose.Schema.Types.ObjectId, ref: "Items", default: [] }]
+    items: [
+      {
+        name: { type: String, required: true },
+        price: { type: Number, required: true },
+        size: { type: String, required: true },
+        brand: { type: String, required: true },
+        store: { type: String, required: true },
+        style: { type: String, required: true },
+        type: { type: String, required: true },
+        imageUrl: { type: String, required: true }
+      }
+    ]
   },
   { collection: "dc_wishlists" }
 );
@@ -36,14 +47,33 @@ const WishlistModel = (0, import_mongoose.model)("Wishlist", WishlistSchema);
 async function index() {
   return WishlistModel.find().lean();
 }
-async function get(listId) {
+async function get(listid) {
   try {
-    const list = await WishlistModel.findOne({ listId }).lean();
-    if (!list) throw new Error(`${listId} Not Found`);
+    const list = await WishlistModel.findOne({ listid }).lean();
+    if (!list) throw new Error(`${listid} Not Found`);
     return list;
   } catch (err) {
     console.error(err);
-    throw new Error(`Error fetching wishlist with ID ${listId}: ${err}`);
+    throw new Error(`Error fetching wishlist with ID ${listid}: ${err}`);
   }
 }
-var wishlist_svc_default = { index, get };
+function create(json) {
+  const t = new WishlistModel(json);
+  return t.save();
+}
+function update(listid, wishlist) {
+  return WishlistModel.findOneAndUpdate({ listid }, wishlist, {
+    new: true
+  }).then((updated) => {
+    if (!updated) throw `${listid} not updated`;
+    else return updated;
+  });
+}
+function remove(listid) {
+  return WishlistModel.findOneAndDelete({ listid }).then(
+    (deleted) => {
+      if (!deleted) throw `${listid} not deleted`;
+    }
+  );
+}
+var wishlist_svc_default = { index, get, create, update, remove };
