@@ -1,11 +1,11 @@
 import { css, html } from "@calpoly/mustang/server";
-import { Wishlist, Item } from "../models";
+import { Wishlist } from "../models";
 import renderPage from "./renderPage";
 
-export class WishlistPage {
-  data: Wishlist;
+export class WishlistListPage {
+  data: Wishlist[];
 
-  constructor(data: Wishlist) {
+  constructor(data: Wishlist[]) {
     this.data = data;
   }
 
@@ -13,6 +13,7 @@ export class WishlistPage {
     return renderPage({
       body: this.renderBody(),
       stylesheets: [
+        "/styles/homepage.css",
         "/styles/wishlist_page.css"
       ],
       styles: [
@@ -28,12 +29,12 @@ export class WishlistPage {
         import { define } from "@calpoly/mustang";
         import { HeaderElement } from "/scripts/header.js";
         import { HomeButtonElement } from "/scripts/home-button.js";
-        import { ItemCardElement } from "/scripts/item-card.js"
+        import { WishlistCardElement } from "/scripts/wishlist-card.js"
       
         define({
           "header-element": HeaderElement,
           "home-button": HomeButtonElement,
-          "item-card": ItemCardElement
+          "wishlist-card": WishlistCardElement
         });
         
         HeaderElement.initializeOnce();`
@@ -42,36 +43,30 @@ export class WishlistPage {
   }
 
   renderBody(): ReturnType<typeof html> {
-    const { listid, name, budget, itemids } = this.data;
-    const itemList = itemids.map(itemid => this.renderItem(itemid));
+    const wishlists = this.data.map(wishlist => this.renderWishlist(wishlist));
 
     return html`
-      <header-element></header-element>
-      <div class="tool-bar">
-        <home-button></home-button>
+        <header-element></header-element>
+        <div class="tool-bar">
+            <home-button></home-button>
 
-        <div class="title-container">
-          <h1>${name}</h1>
+            <div class="title-container">
+                <h1>Wishlists</h1>
+            </div>
         </div>
 
-        <div class="budget-container">
-          <h1>Budget:</h1>
-          <p>$${budget}</p>
-        </div>
-      </div>
-
-      <div class="items-container">
-        ${itemList}
-      </div>`;
+        <div class="wishlist-container">
+            ${wishlists}
+        </div>`;
   }
 
-  renderItem(itemid: string): ReturnType<typeof html> {
-    const endpoint = `/items/${itemid}`
-    const apiEndpoint = `/api/items/${itemid}`
+  renderWishlist(wishlist: Wishlist): ReturnType<typeof html> {
+    const endpoint = `/wishlists/${wishlist.listid}`;
+    const apiEndpoint = `/api/wishlists/${wishlist.listid}`;
     return html`
       <a href="${endpoint}">
-        <item-card src="${apiEndpoint}">
-        </item-card>
+          <wishlist-card src="${apiEndpoint}">
+          </wishlist-card>
       </a>
     `;
   }

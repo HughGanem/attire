@@ -5,7 +5,7 @@ export class HomeButtonElement extends HTMLElement {
   static template = html`
     <template>
       <div class="home-button-container">
-        <a href="/home.html">
+        <a href="/wishlists">
           <svg class="icon">
             <use href="/icons/accounts.svg#icon-home" />
           </svg>

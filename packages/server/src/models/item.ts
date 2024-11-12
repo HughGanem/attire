@@ -1,10 +1,11 @@
 export interface Item {
-    name: string;
-    price: number;
-    size: string;
-    brand: string;
-    store: string;
-    style: string;
-    type: string;
-    imageUrl: string;
+    itemid: string;
+    itemName: string;
+    itemPrice: number;
+    itemSize: string;
+    itemBrand: string;
+    itemStore: string;
+    itemStyle: string;
+    itemType: string;
+    itemImageUrl: string;
 }

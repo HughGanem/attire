@@ -24,25 +24,20 @@ module.exports = __toCommonJS(wishlist_svc_exports);
 var import_mongoose = require("mongoose");
 const WishlistSchema = new import_mongoose.Schema(
   {
-    listid: { type: String, required: true, trim: true, unique: true },
+    listid: { type: String, trim: true, unique: true },
     name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true, trim: true },
     imageUrl: { type: String, required: true, trim: true },
-    items: [
-      {
-        name: { type: String, required: true },
-        price: { type: Number, required: true },
-        size: { type: String, required: true },
-        brand: { type: String, required: true },
-        store: { type: String, required: true },
-        style: { type: String, required: true },
-        type: { type: String, required: true },
-        imageUrl: { type: String, required: true }
-      }
-    ]
+    itemids: [{ type: String }]
   },
   { collection: "dc_wishlists" }
 );
+WishlistSchema.pre("save", function(next) {
+  if (!this.listid && this.name) {
+    this.listid = this.name.replace(/\s(.)/g, (_, char) => char.toUpperCase()).replace(/\s+/g, "");
+  }
+  next();
+});
 const WishlistModel = (0, import_mongoose.model)("Wishlist", WishlistSchema);
 async function index() {
   return WishlistModel.find().lean();

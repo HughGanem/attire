@@ -26,37 +26,37 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var wishlists_exports = {};
-__export(wishlists_exports, {
-  default: () => wishlists_default
+var items_exports = {};
+__export(items_exports, {
+  default: () => items_default
 });
-module.exports = __toCommonJS(wishlists_exports);
+module.exports = __toCommonJS(items_exports);
 var import_express = __toESM(require("express"));
-var import_wishlist_svc = __toESM(require("../services/wishlist-svc"));
+var import_item_svc = __toESM(require("../services/item-svc"));
 const router = import_express.default.Router();
 router.get("/", (_, res) => {
-  import_wishlist_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
+  import_item_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
 });
-router.get("/:listid", (req, res) => {
-  const { listid } = req.params;
-  import_wishlist_svc.default.get(listid).then((wishlist) => {
-    if (!wishlist) {
-      return res.status(404).send(`Wishlist with ID ${listid} not found`);
+router.get("/:itemid", (req, res) => {
+  const { itemid } = req.params;
+  import_item_svc.default.get(itemid).then((item) => {
+    if (!item) {
+      return res.status(404).send(`Wishlist with ID ${itemid} not found`);
     }
-    res.json(wishlist);
+    res.json(item);
   }).catch((err) => res.status(500).send(err));
 });
 router.post("/", (req, res) => {
-  const newWishlist = req.body;
-  import_wishlist_svc.default.create(newWishlist).then((wishlist) => res.status(201).json(wishlist)).catch((err) => res.status(500).send(err));
+  const newItem = req.body;
+  import_item_svc.default.create(newItem).then((item) => res.status(201).json(item)).catch((err) => res.status(500).send(err));
 });
-router.put("/:listid", (req, res) => {
-  const { listid } = req.params;
-  const newWishlist = req.body;
-  import_wishlist_svc.default.update(listid, newWishlist).then((wishlist) => res.json(wishlist)).catch((err) => res.status(404).send(err));
+router.put("/:itemid", (req, res) => {
+  const { itemid } = req.params;
+  const newItem = req.body;
+  import_item_svc.default.update(itemid, newItem).then((item) => res.json(item)).catch((err) => res.status(404).send(err));
 });
-router.delete("/:listid", (req, res) => {
-  const { listid } = req.params;
-  import_wishlist_svc.default.remove(listid).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
+router.delete("/:itemid", (req, res) => {
+  const { itemid } = req.params;
+  import_item_svc.default.remove(itemid).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
 });
-var wishlists_default = router;
+var items_default = router;

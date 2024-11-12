@@ -26,14 +26,14 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var wishlist_exports = {};
-__export(wishlist_exports, {
-  WishlistPage: () => WishlistPage
+var item_exports = {};
+__export(item_exports, {
+  ItemPage: () => ItemPage
 });
-module.exports = __toCommonJS(wishlist_exports);
+module.exports = __toCommonJS(item_exports);
 var import_server = require("@calpoly/mustang/server");
 var import_renderPage = __toESM(require("./renderPage"));
-class WishlistPage {
+class ItemPage {
   data;
   constructor(data) {
     this.data = data;
@@ -41,9 +41,7 @@ class WishlistPage {
   render() {
     return (0, import_renderPage.default)({
       body: this.renderBody(),
-      stylesheets: [
-        "/styles/wishlist_page.css"
-      ],
+      stylesheets: [],
       styles: [
         import_server.css`main.page {
             --page-grids: 8;
@@ -56,53 +54,26 @@ class WishlistPage {
         `
         import { define } from "@calpoly/mustang";
         import { HeaderElement } from "/scripts/header.js";
-        import { HomeButtonElement } from "/scripts/home-button.js";
-        import { ItemCardElement } from "/scripts/item-card.js"
+        import { ItemElement } from "/scripts/item.js";
       
         define({
           "header-element": HeaderElement,
-          "home-button": HomeButtonElement,
-          "item-card": ItemCardElement
+          "item-element": ItemElement
         });
-        
         HeaderElement.initializeOnce();`
       ]
     });
   }
   renderBody() {
-    const { listid, name, budget, itemids } = this.data;
-    const itemList = itemids.map((itemid) => this.renderItem(itemid));
-    return import_server.html`
-      <header-element></header-element>
-      <div class="tool-bar">
-        <home-button></home-button>
-
-        <div class="title-container">
-          <h1>${name}</h1>
-        </div>
-
-        <div class="budget-container">
-          <h1>Budget:</h1>
-          <p>$${budget}</p>
-        </div>
-      </div>
-
-      <div class="items-container">
-        ${itemList}
-      </div>`;
-  }
-  renderItem(itemid) {
-    const endpoint = `/items/${itemid}`;
+    const { itemid } = this.data;
     const apiEndpoint = `/api/items/${itemid}`;
     return import_server.html`
-      <a href="${endpoint}">
-        <item-card src="${apiEndpoint}">
-        </item-card>
-      </a>
+      <header-element></header-element>
+      <item-element src="${apiEndpoint}"></item-element>
     `;
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  WishlistPage
+  ItemPage
 });

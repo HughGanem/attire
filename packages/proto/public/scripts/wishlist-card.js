@@ -1,6 +1,10 @@
 import { css, html, shadow } from "@calpoly/mustang";
 
 export class WishlistCardElement extends HTMLElement {
+  get src() {
+    return this.getAttribute("src");
+  }
+
   static template = html`
     <template>
       <div class="wishlist">
@@ -57,5 +61,36 @@ export class WishlistCardElement extends HTMLElement {
     shadow(this)
       .template(WishlistCardElement.template)
       .styles(WishlistCardElement.styles);
+  }
+  connectedCallback() {
+    if (this.src) this.hydrate(this.src);
+  }
+
+  hydrate(url) {
+      fetch(url)
+          .then((res) => {
+              if (res.status !== 200) throw `Status: ${res.status}`;
+              return res.json();
+          })
+          .then((json) => this.renderSlots(json))
+          .catch((error) =>
+              console.log(`Failed to render data from ${url}:`, error)
+          );
+  }
+
+
+  renderSlots(data) {
+      const itemSlots = {
+          "wishlist-title": html`<span slot="wishlist-title">${data.name}</span>`,
+          "wishlist-image": html`<img slot="wishlist-image" src="${data.imageUrl}" alt="${data.name}" />`,
+      };
+
+      this.replaceChildren();
+
+      Object.keys(itemSlots).forEach((slotName) => {
+          const slotContent = itemSlots[slotName];
+
+          this.appendChild(slotContent);
+      });
   }
 }
