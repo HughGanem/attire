@@ -25,15 +25,17 @@ var import_express = __toESM(require("express"));
 var import_mogo = require("./services/mogo");
 var import_pages = require("./pages/index");
 var import_wishlist_svc = __toESM(require("./services/wishlist-svc"));
-var import_wishlists = __toESM(require("./routes/wishlists"));
 var import_item_svc = __toESM(require("./services/item-svc"));
+var import_wishlists = __toESM(require("./routes/wishlists"));
 var import_items = __toESM(require("./routes/items"));
+var import_auth = __toESM(require("./routes/auth"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
 (0, import_mogo.connect)("dreamin");
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
+app.use("/auth", import_auth.default);
 app.use("/api/wishlists", import_wishlists.default);
 app.use("/api/items", import_items.default);
 app.listen(port, () => {
