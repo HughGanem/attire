@@ -19,10 +19,12 @@ __reExport(pages_exports, require("./item"), module.exports);
 __reExport(pages_exports, require("./wishlist"), module.exports);
 __reExport(pages_exports, require("./wishlistList"), module.exports);
 __reExport(pages_exports, require("./renderPage"), module.exports);
+__reExport(pages_exports, require("./auth"), module.exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   ...require("./item"),
   ...require("./wishlist"),
   ...require("./wishlistList"),
-  ...require("./renderPage")
+  ...require("./renderPage"),
+  ...require("./auth")
 });

@@ -2,14 +2,14 @@
 import express, { Request, Response } from "express";
 import { connect } from "./services/mogo";
 
-import { WishlistPage, ItemPage, WishlistListPage } from "./pages/index";
+import { WishlistPage, ItemPage, WishlistListPage, LoginPage } from "./pages/index";
 
 import Wishlist from "./services/wishlist-svc";
 import Item from "./services/item-svc";
 
 import wishlists from "./routes/wishlists"
 import items from "./routes/items"
-import auth from "./routes/auth";
+import auth, { authenticateUser } from "./routes/auth";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,12 +21,17 @@ app.use(express.static(staticDir));
 app.use(express.json());
 
 app.use("/auth", auth);
-app.use("/api/wishlists", wishlists);
-app.use("/api/items", items);
+app.use("/api/wishlists", authenticateUser, wishlists);
+app.use("/api/items", authenticateUser, items);
 
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+});
+
+app.get("/login", (req: Request, res: Response) => {
+  const page = new LoginPage();
+  res.set("Content-Type", "text/html").send(page.render());
 });
 
 app.get("/wishlists", (req: Request, res: Response) => {
