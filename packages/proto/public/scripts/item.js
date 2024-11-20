@@ -1,4 +1,4 @@
-import { css, html, shadow } from "@calpoly/mustang";
+import { css, html, shadow, Observer } from "@calpoly/mustang";
 
 export class ItemElement extends HTMLElement {
     get src() {
@@ -98,19 +98,32 @@ export class ItemElement extends HTMLElement {
         }
     `;  
 
-  constructor() {
-    super();
-    shadow(this)
-      .template(ItemElement.template)
-      .styles(ItemElement.styles);
-  }
+    constructor() {
+        super();
+        shadow(this)
+        .template(ItemElement.template)
+        .styles(ItemElement.styles);
+    }
 
-  connectedCallback() {
-    if (this.src) this.hydrate(this.src);
+    _authObserver = new Observer(this, "dreamin:auth");
+
+    get authorization() {
+        return (
+        this._user?.authenticated && {
+            Authorization: `Bearer ${this._user.token}`,
+        }
+        );
+    }
+
+    connectedCallback() {
+        this._authObserver.observe(({ user }) => {
+            this._user = user;
+            if (this.src) this.hydrate(this.src); 
+        });
     }
 
     hydrate(url) {
-        fetch(url)
+        fetch(url, { headers: this.authorization })
             .then((res) => {
                 if (res.status !== 200) throw `Status: ${res.status}`;
                 return res.json();

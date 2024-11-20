@@ -1,4 +1,4 @@
-import { css, html, shadow } from "@calpoly/mustang";
+import { css, html, shadow, Events, Observer } from "@calpoly/mustang";
 import reset from "./styles/reset.css.js";
 
 export class HeaderElement extends HTMLElement {
@@ -14,13 +14,18 @@ export class HeaderElement extends HTMLElement {
             <svg class="icon profile-icon">
                 <use href="/icons/accounts.svg#icon-profile" />
             </svg>
+            <a id="userid">
+              Hello,
+              <span></span>
+            </a>
             <label>
                 <input id="dark-mode-toggle" type="checkbox" autocomplete="off" />
                 Dark mode
             </label>
+            <button id="signout">Sign Out</button>
         </header>
     </template>`;
-  
+
   static styles = css`
     header {
         color: var(--header-text);
@@ -63,8 +68,20 @@ export class HeaderElement extends HTMLElement {
       .template(HeaderElement.template)
       .styles(reset.styles, HeaderElement.styles);
 
+    this._userid = this.shadowRoot.querySelector("#userid span");
+    this._signout = this.shadowRoot.querySelector("#signout");
     const darkModeToggle = this.shadowRoot.querySelector("#dark-mode-toggle");
 
+    // Signout button listener
+    this._signout.addEventListener("click", (event) => {
+      if (Events && Events.relay) {
+        Events.relay(event, "auth:message", ["auth/signout"]);
+      } else {
+        console.error("Events.relay is not defined");
+      }
+    });
+
+    // Dark mode toggle listener
     darkModeToggle.addEventListener("change", (event) => {
       const darkModeEvent = new CustomEvent("darkmode:toggle", {
         detail: { enabled: event.target.checked },
@@ -72,7 +89,37 @@ export class HeaderElement extends HTMLElement {
         composed: true,
       });
       this.dispatchEvent(darkModeEvent);
-      event.stopPropagation();
+    });
+  }
+
+  _authObserver = new Observer(this, "dreamin:auth");
+
+  get userid() {
+    return this._userid.textContent;
+  }
+
+  set userid(id) {
+    if (id === "anonymous") {
+      this._userid.textContent = "";
+      this._signout.disabled = true;
+    } else {
+      this._userid.textContent = id;
+      this._signout.disabled = false;
+    }
+  }
+
+  get authorization() {
+    return this._user?.authenticated
+      ? { Authorization: `Bearer ${this._user.token}` }
+      : null;
+  }
+
+  connectedCallback() {
+    this._authObserver.observe(({ user }) => {
+      this._user = user; // Define `_user` when observer provides data
+      if (user && user.username !== this.userid) {
+        this.userid = user.username;
+      }
     });
   }
 
@@ -81,7 +128,7 @@ export class HeaderElement extends HTMLElement {
   static initializeOnce() {
     if (HeaderElement.isInitialized) return;
     HeaderElement.isInitialized = true;
-    
+
     document.body.addEventListener("darkmode:toggle", (event) => {
       document.body.classList.toggle("dark-mode", event.detail.enabled);
     });

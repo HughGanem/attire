@@ -22,7 +22,7 @@ export class LoginPage {
         ],
         body: html`
           <body>
-            <mu-auth provides="blazing:auth">
+            <mu-auth provides="dreamin:auth">
               <article>
                 <blz-header></blz-header>
                 <main class="page">

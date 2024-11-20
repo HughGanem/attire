@@ -54,12 +54,13 @@ class WishlistPage {
       ],
       scripts: [
         `
-        import { define } from "@calpoly/mustang";
+        import { define, Auth } from "@calpoly/mustang";
         import { HeaderElement } from "/scripts/header.js";
         import { HomeButtonElement } from "/scripts/home-button.js";
-        import { ItemCardElement } from "/scripts/item-card.js"
+        import { ItemCardElement } from "/scripts/item-card.js";
       
         define({
+          "mu-auth": Auth.Provider,
           "header-element": HeaderElement,
           "home-button": HomeButtonElement,
           "item-card": ItemCardElement
@@ -73,23 +74,25 @@ class WishlistPage {
     const { listid, name, budget, itemids } = this.data;
     const itemList = itemids.map((itemid) => this.renderItem(itemid));
     return import_server.html`
-      <header-element></header-element>
-      <div class="tool-bar">
-        <home-button></home-button>
+      <mu-auth provides="dreamin:auth">
+        <header-element></header-element>
+        <div class="tool-bar">
+          <home-button></home-button>
 
-        <div class="title-container">
-          <h1>${name}</h1>
+          <div class="title-container">
+            <h1>${name}</h1>
+          </div>
+
+          <div class="budget-container">
+            <h1>Budget:</h1>
+            <p>$${budget}</p>
+          </div>
         </div>
 
-        <div class="budget-container">
-          <h1>Budget:</h1>
-          <p>$${budget}</p>
+        <div class="items-container">
+          ${itemList}
         </div>
-      </div>
-
-      <div class="items-container">
-        ${itemList}
-      </div>`;
+      </mu-auth>`;
   }
   renderItem(itemid) {
     const endpoint = `/items/${itemid}`;

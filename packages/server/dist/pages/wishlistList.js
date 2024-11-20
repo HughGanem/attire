@@ -55,12 +55,13 @@ class WishlistListPage {
       ],
       scripts: [
         `
-        import { define } from "@calpoly/mustang";
+        import { define, Auth } from "@calpoly/mustang";
         import { HeaderElement } from "/scripts/header.js";
         import { HomeButtonElement } from "/scripts/home-button.js";
-        import { WishlistCardElement } from "/scripts/wishlist-card.js"
+        import { WishlistCardElement } from "/scripts/wishlist-card.js";
       
         define({
+          "mu-auth": Auth.Provider,
           "header-element": HeaderElement,
           "home-button": HomeButtonElement,
           "wishlist-card": WishlistCardElement
@@ -73,6 +74,7 @@ class WishlistListPage {
   renderBody() {
     const wishlists = this.data.map((wishlist) => this.renderWishlist(wishlist));
     return import_server.html`
+      <mu-auth provides="dreamin:auth">
         <header-element></header-element>
         <div class="tool-bar">
             <home-button></home-button>
@@ -84,7 +86,8 @@ class WishlistListPage {
 
         <div class="wishlist-container">
             ${wishlists}
-        </div>`;
+        </div>
+      </mu-auth>`;
   }
   renderWishlist(wishlist) {
     const endpoint = `/wishlists/${wishlist.listid}`;

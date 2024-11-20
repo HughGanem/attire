@@ -52,11 +52,12 @@ class ItemPage {
       ],
       scripts: [
         `
-        import { define } from "@calpoly/mustang";
+        import { define, Auth } from "@calpoly/mustang";
         import { HeaderElement } from "/scripts/header.js";
         import { ItemElement } from "/scripts/item.js";
       
         define({
+          "mu-auth": Auth.Provider,
           "header-element": HeaderElement,
           "item-element": ItemElement
         });
@@ -68,8 +69,10 @@ class ItemPage {
     const { itemid } = this.data;
     const apiEndpoint = `/api/items/${itemid}`;
     return import_server.html`
-      <header-element></header-element>
-      <item-element src="${apiEndpoint}"></item-element>
+      <mu-auth provides="dreamin:auth">
+        <header-element></header-element>
+        <item-element src="${apiEndpoint}"></item-element>
+      </mu-auth>
     `;
   }
 }

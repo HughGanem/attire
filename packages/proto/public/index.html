@@ -16,11 +16,12 @@
             }
         </script>
         <script type="module">
-            import { define } from "@calpoly/mustang";
+            import { define, Auth } from "@calpoly/mustang";
             import { HeaderElement } from "/scripts/header.js";
           
             define({
-              "header-element": HeaderElement
+              "header-element": HeaderElement,
+              "mu-auth": Auth.Provider
             });
 
             HeaderElement.initializeOnce();
@@ -28,12 +29,14 @@
     </head>
     
     <body>
-        <header-element></header-element>
-        
-        <div class="start-button-container">
-            <a href="/wishlists">
-                <span class="start-text">Create a wishlist!</span>
-            </a>
-        </div>
+        <mu-auth provides="dreamin:auth">
+            <header-element></header-element>
+
+            <div class="start-button-container">
+                <a href="/wishlists">
+                    <span class="start-text">Create a wishlist!</span>
+                </a>
+            </div>
+        </mu-auth>
     </body>
 </html>

@@ -1,4 +1,4 @@
-import { css, html, shadow } from "@calpoly/mustang";
+import { css, html, shadow, Observer } from "@calpoly/mustang";
 
 export class WishlistCardElement extends HTMLElement {
   get src() {
@@ -62,12 +62,26 @@ export class WishlistCardElement extends HTMLElement {
       .template(WishlistCardElement.template)
       .styles(WishlistCardElement.styles);
   }
+
+  _authObserver = new Observer(this, "dreamin:auth");
+
+  get authorization() {
+      return (
+      this._user?.authenticated && {
+          Authorization: `Bearer ${this._user.token}`,
+      }
+      );
+  }
+
   connectedCallback() {
-    if (this.src) this.hydrate(this.src);
+    this._authObserver.observe(({ user }) => {
+        this._user = user;
+        if (this.src) this.hydrate(this.src); // Ensure fetch happens once user is available
+    });
   }
 
   hydrate(url) {
-      fetch(url)
+      fetch(url, { headers: this.authorization })
           .then((res) => {
               if (res.status !== 200) throw `Status: ${res.status}`;
               return res.json();
