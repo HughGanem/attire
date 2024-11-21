@@ -71,7 +71,7 @@ class WishlistPage {
     });
   }
   renderBody() {
-    const { listid, name, budget, itemids } = this.data;
+    const { name, budget, itemids } = this.data;
     const itemList = itemids.map((itemid) => this.renderItem(itemid));
     return import_server.html`
       <mu-auth provides="dreamin:auth">

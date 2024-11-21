@@ -43,7 +43,7 @@ export class WishlistPage {
   }
 
   renderBody(): ReturnType<typeof html> {
-    const { listid, name, budget, itemids } = this.data;
+    const { name, budget, itemids } = this.data;
     const itemList = itemids.map(itemid => this.renderItem(itemid));
 
     return html`

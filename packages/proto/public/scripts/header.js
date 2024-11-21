@@ -11,9 +11,11 @@ export class HeaderElement extends HTMLElement {
                 </svg>
                 <h1 class="logo">DreamCart</h1>
             </a>
-            <svg class="icon profile-icon">
-                <use href="/icons/accounts.svg#icon-profile" />
-            </svg>
+            <a href="/login">
+              <svg class="icon profile-icon">
+                  <use href="/icons/accounts.svg#icon-profile" />
+              </svg>
+            </a>
             <a id="userid">
               Hello,
               <span></span>

@@ -36,9 +36,7 @@ export class WishlistListPage {
           "header-element": HeaderElement,
           "home-button": HomeButtonElement,
           "wishlist-card": WishlistCardElement
-        });
-        
-        HeaderElement.initializeOnce();`
+        });`
       ]
     });
   }
@@ -64,13 +62,17 @@ export class WishlistListPage {
   }
 
   renderWishlist(wishlist: Wishlist): ReturnType<typeof html> {
-    const endpoint = `/wishlists/${wishlist.listid}`;
-    const apiEndpoint = `/api/wishlists/${wishlist.listid}`;
-    return html`
-      <a href="${endpoint}">
-          <wishlist-card src="${apiEndpoint}">
-          </wishlist-card>
-      </a>
-    `;
+    //TODO: get the current signed in user name
+    if (wishlist.username === 'hganem') { 
+      const endpoint = `/wishlists/${wishlist.listid}`;
+      const apiEndpoint = `/api/wishlists/${wishlist.listid}`;
+      return html`
+        <a href="${endpoint}">
+            <wishlist-card src="${apiEndpoint}">
+            </wishlist-card>
+        </a>
+      `;
+    }
+    return html``;
   }
 }

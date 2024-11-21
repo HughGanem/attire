@@ -7,8 +7,8 @@ import { WishlistPage, ItemPage, WishlistListPage, LoginPage } from "./pages/ind
 import Wishlist from "./services/wishlist-svc";
 import Item from "./services/item-svc";
 
-import wishlists from "./routes/wishlists"
-import items from "./routes/items"
+import wishlists from "./routes/wishlists";
+import items from "./routes/items";
 import auth, { authenticateUser } from "./routes/auth";
 
 const app = express();

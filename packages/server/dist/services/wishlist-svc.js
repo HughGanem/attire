@@ -24,17 +24,22 @@ module.exports = __toCommonJS(wishlist_svc_exports);
 var import_mongoose = require("mongoose");
 const WishlistSchema = new import_mongoose.Schema(
   {
-    listid: { type: String, trim: true, unique: true },
+    listid: { type: String, trim: true },
     name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true, trim: true },
     imageUrl: { type: String, required: true, trim: true },
-    itemids: [{ type: String }]
+    itemids: [{ type: String }],
+    username: { type: String, required: true, trim: true }
   },
   { collection: "dc_wishlists" }
 );
 WishlistSchema.pre("save", function(next) {
-  if (!this.listid && this.name) {
-    this.listid = this.name.replace(/\s(.)/g, (_, char) => char.toUpperCase()).replace(/\s+/g, "");
+  if (!this.listid) {
+    if (this.name) {
+      this.listid = this.name.replace(/\s(.)/g, (_, char) => char.toUpperCase()).replace(/\s+/g, "");
+    } else {
+      return next(new Error("Cannot save wishlist: 'name' is required to generate a 'listid'."));
+    }
   }
   next();
 });
@@ -53,8 +58,11 @@ async function get(listid) {
   }
 }
 function create(json) {
-  const t = new WishlistModel(json);
-  return t.save();
+  if (!json.name) {
+    return Promise.reject(new Error("Cannot create wishlist: 'name' is required."));
+  }
+  const wishlist = new WishlistModel(json);
+  return wishlist.save();
 }
 function update(listid, wishlist) {
   return WishlistModel.findOneAndUpdate({ listid }, wishlist, {

@@ -12,7 +12,7 @@ const credentialSchema = new Schema<Credential>(
     hashedPassword: {
       type: String,
       required: true
-    }
+    },
   },
   { collection: "user_credentials" }
 );

@@ -4,4 +4,5 @@ export interface Wishlist {
     budget: number;
     imageUrl: string;
     itemids: string[];
+    username: string;
 }

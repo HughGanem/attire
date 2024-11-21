@@ -65,9 +65,7 @@ class WishlistListPage {
           "header-element": HeaderElement,
           "home-button": HomeButtonElement,
           "wishlist-card": WishlistCardElement
-        });
-        
-        HeaderElement.initializeOnce();`
+        });`
       ]
     });
   }
@@ -90,14 +88,17 @@ class WishlistListPage {
       </mu-auth>`;
   }
   renderWishlist(wishlist) {
-    const endpoint = `/wishlists/${wishlist.listid}`;
-    const apiEndpoint = `/api/wishlists/${wishlist.listid}`;
-    return import_server.html`
-      <a href="${endpoint}">
-          <wishlist-card src="${apiEndpoint}">
-          </wishlist-card>
-      </a>
-    `;
+    if (wishlist.username === "hganem") {
+      const endpoint = `/wishlists/${wishlist.listid}`;
+      const apiEndpoint = `/api/wishlists/${wishlist.listid}`;
+      return import_server.html`
+        <a href="${endpoint}">
+            <wishlist-card src="${apiEndpoint}">
+            </wishlist-card>
+        </a>
+      `;
+    }
+    return import_server.html``;
   }
 }
 // Annotate the CommonJS export names for ESM import in node:

@@ -11,8 +11,7 @@ import credentials from "../services/credential-svc";
 const router = express.Router();
 
 dotenv.config();
-const TOKEN_SECRET: string =
-    process.env.TOKEN_SECRET || "NOT_A_SECRET";
+const TOKEN_SECRET: string = process.env.TOKEN_SECRET || "NOT_A_SECRET";
 
 router.post("/register", (req: Request, res: Response) => {
     const { username, password } = req.body; // from form
@@ -58,7 +57,6 @@ function generateAccessToken(username: string): Promise<String> {
 
 export function authenticateUser(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers["authorization"];
-    //Getting the 2nd part of the auth header (the token)
     const token = authHeader && authHeader.split(" ")[1];
   
     if (!token) {
