@@ -88,17 +88,14 @@ class WishlistListPage {
       </mu-auth>`;
   }
   renderWishlist(wishlist) {
-    if (wishlist.username === "hganem") {
-      const endpoint = `/wishlists/${wishlist.listid}`;
-      const apiEndpoint = `/api/wishlists/${wishlist.listid}`;
-      return import_server.html`
-        <a href="${endpoint}">
-            <wishlist-card src="${apiEndpoint}">
-            </wishlist-card>
-        </a>
-      `;
-    }
-    return import_server.html``;
+    const endpoint = `/wishlists/${wishlist.listid}`;
+    const apiEndpoint = `/api/wishlists/${wishlist.listid}`;
+    return import_server.html`
+      <a href="${endpoint}">
+          <wishlist-card src="${apiEndpoint}">
+          </wishlist-card>
+      </a>
+    `;
   }
 }
 // Annotate the CommonJS export names for ESM import in node:

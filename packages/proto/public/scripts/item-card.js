@@ -8,13 +8,13 @@ export class ItemCardElement extends HTMLElement {
     static template = html`
         <template>
             <div class="item-container">
-                <h2 class="item-name">
+                <h2 class="itemName">
                     <slot name="product-title">Default Product</slot>
                 </h2>
-                <div class="item-image">
-                    <slot name="item-image">***Featured Slot***</slot>
+                <div class="itemImageUrl">
+                    <slot name="itemImageUrl">***Featured Slot***</slot>
                 </div>
-                <p class="item-price">
+                <p class="itemPrice">
                     Price: <slot name="product-price">$##.##</slot>
                 </p>
             </div>
@@ -33,14 +33,14 @@ export class ItemCardElement extends HTMLElement {
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .item-name {
+        .itemName {
             font-family: 'Nunito Sans', sans-serif;
             font-size: 40px;
             margin: 10px 0;
             text-decoration: none;
         }
 
-        .item-image slot::slotted(img) {
+        .itemImageUrl slot::slotted(img) {
             width: 100%;
             height: 100%;
             max-width: 450px;
@@ -50,7 +50,7 @@ export class ItemCardElement extends HTMLElement {
             transition: transform 0.2s;
         }
 
-        .item-price {
+        .itemPrice {
             font-family: 'Nunito Sans', sans-serif;
             font-size: 30px;
             margin: 10px 0;
@@ -61,7 +61,7 @@ export class ItemCardElement extends HTMLElement {
             transform: scale(1.05);
         }
 
-        .item-container:hover .item-image slot::slotted(img) {
+        .item-container:hover .itemImageUrl slot::slotted(img) {
             transform: scale(1.05);
         }`;
 
@@ -105,7 +105,7 @@ export class ItemCardElement extends HTMLElement {
     renderSlots(data) {
         const itemSlots = {
             "product-title": html`<span slot="product-title">${data.itemName}</span>`,
-            "item-image": html`<img slot="item-image" src="${data.itemImageUrl}" alt="${data.itemName}" />`,
+            "itemImageUrl": html`<img slot="itemImageUrl" src="${data.itemImageUrl}" alt="${data.itemName}" />`,
             "product-price": html`<span slot="product-price">$${data.itemPrice.toFixed(2)}</span>`
         };
 

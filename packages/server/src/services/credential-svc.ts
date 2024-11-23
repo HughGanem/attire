@@ -77,4 +77,4 @@ function verify(username: string, password: string): Promise<string> {
     });
 }
 
-export default { create, verify };
+export default { create, verify};
