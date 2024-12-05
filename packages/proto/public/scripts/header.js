@@ -11,20 +11,18 @@ export class HeaderElement extends HTMLElement {
                 </svg>
                 <h1 class="logo">DreamCart</h1>
             </a>
-            <a href="/login">
-              <svg class="icon profile-icon">
-                  <use href="/icons/accounts.svg#icon-profile" />
-              </svg>
-            </a>
-            <a id="userid">
-              Hello,
-              <span></span>
-            </a>
-            <label>
-                <input id="dark-mode-toggle" type="checkbox" autocomplete="off" />
-                Dark mode
-            </label>
-            <button id="signout">Sign Out</button>
+            <div class="header-right">
+                <label>
+                    <input id="dark-mode-toggle" type="checkbox" autocomplete="off" />
+                    Dark mode
+                </label>
+                <a id="userid">
+                    Hello, <span></span>
+                </a>
+                <a href="/login">
+                  <button id="signout">Sign Out</button>
+                </a>
+            </div>
         </header>
     </template>`;
 
@@ -57,11 +55,18 @@ export class HeaderElement extends HTMLElement {
         height: 80px;
         fill: var(--header-text);
     }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px; /* Space between elements */
+      margin-left: auto; /* Push container to the right */
+    }
 
-    .profile-icon {
-        width: 100px;
-        height: 100px;
-        fill: var(--header-text);
+    .header-right label {
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 16px;
+        color: var(--header-text);
+        cursor: pointer;
     }`;
 
   constructor() {

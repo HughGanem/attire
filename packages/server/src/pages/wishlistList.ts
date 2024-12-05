@@ -30,13 +30,17 @@ export class WishlistListPage {
         import { HeaderElement } from "/scripts/header.js";
         import { HomeButtonElement } from "/scripts/home-button.js";
         import { WishlistCardElement } from "/scripts/wishlist-card.js";
+        import { WishlistFormElement } from "/scripts/wishlist-form.js";
       
         define({
           "mu-auth": Auth.Provider,
           "header-element": HeaderElement,
           "home-button": HomeButtonElement,
-          "wishlist-card": WishlistCardElement
-        });`
+          "wishlist-card": WishlistCardElement,
+          "wishlist-form": WishlistFormElement,
+        });
+        
+        HeaderElement.initializeOnce();`
       ]
     });
   }
@@ -58,6 +62,7 @@ export class WishlistListPage {
         <div class="wishlist-container">
             ${wishlists}
         </div>
+        <wishlist-form src="/api/wishlists/"></wishlist-form>
       </mu-auth>`;
   }
 

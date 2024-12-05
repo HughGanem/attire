@@ -58,12 +58,14 @@ class WishlistPage {
         import { HeaderElement } from "/scripts/header.js";
         import { HomeButtonElement } from "/scripts/home-button.js";
         import { ItemCardElement } from "/scripts/item-card.js";
+        import { ItemFormElement } from "/scripts/item-form.js";
       
         define({
           "mu-auth": Auth.Provider,
           "header-element": HeaderElement,
           "home-button": HomeButtonElement,
-          "item-card": ItemCardElement
+          "item-card": ItemCardElement,
+          "item-form": ItemFormElement,
         });
         
         HeaderElement.initializeOnce();`
@@ -71,7 +73,7 @@ class WishlistPage {
     });
   }
   renderBody() {
-    const { name, budget, itemids } = this.data;
+    const { listid, name, budget, itemids } = this.data;
     const itemList = itemids.map((itemid) => this.renderItem(itemid));
     return import_server.html`
       <mu-auth provides="dreamin:auth">
@@ -89,9 +91,13 @@ class WishlistPage {
           </div>
         </div>
 
+
         <div class="items-container">
           ${itemList}
         </div>
+
+        <item-form src="/api/wishlists/${listid}"></item-form>
+        
       </mu-auth>`;
   }
   renderItem(itemid) {

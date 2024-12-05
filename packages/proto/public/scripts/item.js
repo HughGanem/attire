@@ -63,7 +63,7 @@ export class ItemElement extends HTMLElement {
                 </label>
                 <label>
                     <span>Image</span>
-                    <input type="file" name="itemImageUrl" />
+                    <input name="itemImageUrl" />
                 </label>
                 <label>
                     <span>Price</span>

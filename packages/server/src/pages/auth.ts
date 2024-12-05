@@ -8,23 +8,41 @@ export class LoginPage {
           `
           import { define, Auth } from "@calpoly/mustang";
           import { LoginForm } from "/scripts/login-form.js";
+          import { HeaderElement } from "/scripts/header.js";
   
           define({
             "mu-auth": Auth.Provider,
-            "login-form": LoginForm
-          })
+            "login-form": LoginForm,
+            "header-element": HeaderElement,
+          });
+          HeaderElement.initializeOnce();
           `
         ],
         styles: [
           css`
-            /* your CSS here */
+
+            .register {
+              margin-top: 20px;
+              font-size: 16px;
+              color: var(--header-text);
+              text-align: center;
+            }
+
+            .register a {
+              color: var(--color-header-hover);
+              text-decoration: none;
+            }
+
+            .register a:hover {
+              text-decoration: underline;
+            }
           `
         ],
         body: html`
           <body>
             <mu-auth provides="dreamin:auth">
               <article>
-                <blz-header></blz-header>
+                <header-element></header-element>
                 <main class="page">
                   <login-form api="/auth/login">
                     <h3 slot="title">Sign in and go places!</h3>

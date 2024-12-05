@@ -28,8 +28,7 @@ const WishlistSchema = new import_mongoose.Schema(
     name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true, trim: true },
     imageUrl: { type: String, required: true, trim: true },
-    itemids: [{ type: String }],
-    username: { type: String, required: true, trim: true }
+    itemids: [{ type: String }]
   },
   { collection: "dc_wishlists" }
 );

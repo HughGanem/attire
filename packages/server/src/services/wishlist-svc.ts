@@ -8,7 +8,6 @@ const WishlistSchema = new Schema<Wishlist>(
     budget: { type: Number, required: true, trim: true },
     imageUrl: { type: String, required: true, trim: true },
     itemids: [{ type: String }],
-    username: { type: String, required: true, trim: true },
   },
   { collection: "dc_wishlists" }
 );
