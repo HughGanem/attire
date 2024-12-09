@@ -31,8 +31,7 @@ export class ItemPage {
           "mu-auth": Auth.Provider,
           "header-element": HeaderElement,
           "item-element": ItemElement
-        });
-        HeaderElement.initializeOnce();`
+        });`
       ]
     });
   }

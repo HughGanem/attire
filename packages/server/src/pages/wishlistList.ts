@@ -38,9 +38,7 @@ export class WishlistListPage {
           "home-button": HomeButtonElement,
           "wishlist-card": WishlistCardElement,
           "wishlist-form": WishlistFormElement,
-        });
-        
-        HeaderElement.initializeOnce();`
+        });`
       ]
     });
   }

@@ -47,7 +47,6 @@ class LoginPage {
             "login-form": LoginForm,
             "header-element": HeaderElement,
           });
-          HeaderElement.initializeOnce();
           `
       ],
       styles: [

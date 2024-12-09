@@ -79,6 +79,8 @@ export class HeaderElement extends HTMLElement {
     this._signout = this.shadowRoot.querySelector("#signout");
     const darkModeToggle = this.shadowRoot.querySelector("#dark-mode-toggle");
 
+    HeaderElement.initializeOnce();
+
     // Signout button listener
     this._signout.addEventListener("click", (event) => {
       if (Events && Events.relay) {
