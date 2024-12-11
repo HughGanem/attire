@@ -1,4 +1,7 @@
 // src/index.ts
+import fs from "node:fs/promises";
+import path from "path";
+
 import express, { Request, Response } from "express";
 import { connect } from "./services/mogo";
 
@@ -11,18 +14,22 @@ import wishlists from "./routes/wishlists";
 import items from "./routes/items";
 import auth, { authenticateUser } from "./routes/auth";
 
-const app = express();
-const port = process.env.PORT || 3000;
-const staticDir = process.env.STATIC || "public";
 
 connect("dreamin");
 
+const app = express();
+const port = process.env.PORT || 3000;
+
+const staticDir = process.env.STATIC || "public";
+console.log("Serving static files from ", staticDir);
 app.use(express.static(staticDir));
+
 app.use(express.json());
 
 app.use("/auth", auth);
 app.use("/api/wishlists", authenticateUser, wishlists);
-app.use("/api/items", authenticateUser, items);
+// app.use("/api/items", authenticateUser, items);
+app.use("/api/items", items);
 
 
 app.listen(port, () => {
@@ -77,4 +84,12 @@ app.get("/items/:itemid", (req: Request, res: Response) => {
     console.error("Error fetching item:", err);
     res.status(500).send("Internal Server Error");
   });
+});
+
+// SPA Routes: /app/...
+app.use("/app", (req: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
 });

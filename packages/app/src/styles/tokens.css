@@ -1,0 +1,18 @@
+:root {
+    --color-background-page: #A2BCE0;
+    --color-background-page-alt: #D1DEF0;
+    --color-header: #42618A;
+
+    --color-text-main: #555555;
+
+    --font-main: 'Nunito Sans', sans-serif;
+
+    --header-text: #f9f9f9;
+}
+
+body.dark-mode {
+    --color-background-page: #192F4D;
+    --color-background-page-alt: #3C587C;
+
+    --color-text-main: #CCCCCC;
+}

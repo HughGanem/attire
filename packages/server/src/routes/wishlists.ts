@@ -4,7 +4,6 @@ import Wishlists from "../services/wishlist-svc";
 
 const router = express.Router();
 
-
 router.get("/", (_, res: Response) => {
   Wishlists.index()
     .then((list: Wishlist[]) => res.json(list))
