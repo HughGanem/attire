@@ -1,9 +1,75 @@
-import { Auth, Observer } from "@calpoly/mustang";
-import { css, html, LitElement } from "lit";
-import { state } from "lit/decorators.js";
-import { Item } from "server/models";
+import { View } from "@calpoly/mustang";
+import { css, html } from "lit";
+import { property, state } from "lit/decorators.js";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-export class ItemViewElement extends LitElement {
+// Define any custom elements you're using
+export class ItemViewElement extends View<Model, Msg> {
+  @property({ attribute: "item-id", reflect: true })
+  itemid?: string;
+
+  @state()
+  get item() {
+    return this.model.item;
+  }
+
+  constructor() {
+    super("dreamin:model");
+  }
+
+  attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string
+  ) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    console.log("ATTRIBUTE CHANGED", name, oldValue, newValue);
+    if (
+      name === "item-id" && 
+      oldValue !== newValue && 
+      newValue) {
+      console.log("Item Page:", newValue);
+      this.dispatchMessage([
+        "item/select",
+        { 
+          itemid: newValue 
+        }
+      ]);
+    }
+  }
+
+  render() {
+    const item = this.item;
+
+    console.log("RENDER", this.itemid, this.item);
+
+    if (item) {
+      return html`
+      <div class="information-container">
+        <span class="information-title">
+          <strong><span>${item.itemName}</span></strong>
+        </span>
+
+        <div class="information-image">
+          <img src="${item.itemImageUrl}" alt="${item.itemName}" />
+        </div>
+
+        <div class="detail-container">
+          <p class="detail"><strong>Price: </strong>$<span>${(item.itemPrice || 0).toFixed(2)}</span></p>
+          <p class="detail"><strong>Size: </strong><span>${item.itemSize}</span></p>
+          <p class="detail"><strong>Brand: </strong><span>${item.itemBrand}</span></p>
+          <p class="detail"><strong>Store: </strong><span>${item.itemStore}</span></p>
+          <p class="detail"><strong>Style: </strong><span>${item.itemStyle}</span></p>
+          <p class="detail"><strong>Type of Clothing: </strong><span>${item.itemType}</span></p>
+        </div>
+      </div>
+    `;
+    } else {
+      return html``;
+    }
+  }
+
   static styles = css`
     .information-container {
       display: flex;
@@ -50,76 +116,4 @@ export class ItemViewElement extends LitElement {
       margin: 5px 0;
     }
   `;
-
-  @state()
-  declare item: Item;
-
-  get src() {
-    return `api/items/GolfWangHat`
-    // return `api/items/${this.item.itemid}`;
-  }
-
-  render() {
-    const {
-      itemName,
-      itemPrice,
-      itemSize,
-      itemBrand,
-      itemStore,
-      itemStyle,
-      itemType,
-      itemImageUrl
-    } = this.item;
-
-    return html`
-      <div class="information-container">
-        <span class="information-title">
-          <strong><span>${itemName}</span></strong>
-        </span>
-
-        <div class="information-image">
-          <img src="${itemImageUrl}" alt="${itemName}" />
-        </div>
-
-        <div class="detail-container">
-          <p class="detail"><strong>Price: </strong>$<span>${itemPrice.toFixed(2)}</span></p>
-          <p class="detail"><strong>Size: </strong><span>${itemSize}</span></p>
-          <p class="detail"><strong>Brand: </strong><span>${itemBrand}</span></p>
-          <p class="detail"><strong>Store: </strong><span>${itemStore}</span></p>
-          <p class="detail"><strong>Style: </strong><span>${itemStyle}</span></p>
-          <p class="detail"><strong>Type of Clothing: </strong><span>${itemType}</span></p>
-        </div>
-      </div>
-    `;
-  }
-
-  hydrate(url: string) {
-    fetch(url, {
-      headers: Auth.headers(this._user)
-    })
-      .then((res: Response) => {
-        if (res.status === 200) return res.json();
-        throw new Error(`Server responded with status ${res.status}`);
-      })
-      .then((json: unknown) => {
-        if (json) {
-          this.item = json as Item;
-        }
-      })
-      .catch((err) => console.error("Failed to load item data:", err));
-  }
-
-  private _authObserver = new Observer<Auth.Model>(this, "dreamin:auth");
-
-  private _user = new Auth.User();
-
-  connectedCallback() {
-    super.connectedCallback();
-    this._authObserver.observe(({ user }) => {
-      if (user) {
-        this._user = user;
-      }
-      this.hydrate(this.src);
-    });
-  }
 }

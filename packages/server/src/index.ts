@@ -28,18 +28,17 @@ app.use(express.json());
 
 app.use("/auth", auth);
 app.use("/api/wishlists", authenticateUser, wishlists);
-// app.use("/api/items", authenticateUser, items);
-app.use("/api/items", items);
+app.use("/api/items", authenticateUser, items);
 
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-app.get("/login", (req: Request, res: Response) => {
-  const page = new LoginPage();
-  res.set("Content-Type", "text/html").send(page.render());
-});
+// app.get("/login", (req: Request, res: Response) => {
+//   const page = new LoginPage();
+//   res.set("Content-Type", "text/html").send(page.render());
+// });
 
 app.get("/wishlists", (req: Request, res: Response) => {
   Wishlist.index()

@@ -40,13 +40,9 @@ app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
 app.use("/auth", import_auth.default);
 app.use("/api/wishlists", import_auth.authenticateUser, import_wishlists.default);
-app.use("/api/items", import_items.default);
+app.use("/api/items", import_auth.authenticateUser, import_items.default);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
-});
-app.get("/login", (req, res) => {
-  const page = new import_pages.LoginPage();
-  res.set("Content-Type", "text/html").send(page.render());
 });
 app.get("/wishlists", (req, res) => {
   import_wishlist_svc.default.index().then((data) => {

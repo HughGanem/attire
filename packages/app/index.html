@@ -8,17 +8,23 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="./src/styles/tokens.css" />
-        <link rel="stylesheet" href="./src/styles/page.css" />
-        <link rel="stylesheet" href="./src/styles/start_page.css" />
+        <link rel="stylesheet" href="./public/styles/tokens.css" />
+        <link rel="stylesheet" href="./public/styles/page.css" />
+        <link rel="stylesheet" href="./public/styles/start_page.css" />
 
         <script type="module" src="./src/main.ts"></script>
     </head>
     
     <body>
-        <mu-auth provides="dreamin:auth">
-            <dreamcart-header></dreamcart-header>
-            <dreamin-app></dreamin-app>
-        </mu-auth>
+        <mu-history provides="dreamin:history">
+            <mu-auth provides="dreamin:auth" redirect="/login.html">
+                <mu-store provides="dreamin:model">
+                    <article>
+                        <dreamcart-header></dreamcart-header>
+                        <dreamin-app></dreamin-app>
+                    </article>
+                </mu-store>
+            </mu-auth>
+        </mu-history>
     </body>
 </html>
