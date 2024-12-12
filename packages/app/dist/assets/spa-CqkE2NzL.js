@@ -1,4 +1,4 @@
-import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s as D,_}from"./property-DB8J0kcg.js";const R={};function U(e,i,t){switch(e[0]){case"item/select":I(e[1],t).then(s=>i(n=>({...n,item:s})));break;case"item/save":M(e[1],t).then(s=>i(n=>({...n,item:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlist/save":B(e[1],t).then(s=>i(n=>({...n,wishlist:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlistList/select":F(t).then(s=>i(n=>({...n,wishlistList:s})));break;case"wishlist/select":j(e[1],t).then(s=>i(n=>({...n,wishlist:s})));break;case"wishlistItems/select":L(e[1],t).then(s=>i(n=>({...n,itemList:s})));break;default:const a=e[0];throw new Error(`Unhandled Auth message "${a}"`)}}function I(e,i){return fetch(`/api/items/${e.itemid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Item:",t),t})}function F(e){return fetch("/api/wishlists",{headers:d.headers(e)}).then(i=>{if(i.status!==200)throw"Failed to load wishlists";return i.json()}).then(i=>{if(console.log("JSON Returned: ",i),i)return console.log("MAKE WISHLIST: ",i),i})}function j(e,i){return fetch(`/api/wishlists/${e.listid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Wishlist:",t),t})}function L(e,i){return j(e,i).then(t=>t&&t.itemids?Promise.all(t.itemids.map(a=>I({itemid:a},i))):[]).then(t=>(console.log("Items:",t),t))}function M(e,i){return fetch(`/api/items/${e.itemid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.item)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save item for ${e.itemid}`)}).then(t=>{if(t)return t})}function B(e,i){return fetch(`/api/wishlists/${e.listid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.wishlist)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save wishlist for ${e.listid}`)}).then(t=>{if(t)return t})}function E(e){const t=e.target.checked;T.relay(e,"dark-mode",{checked:t})}const z=class z extends N{render(){return r`
+import{a as d,r as N,x as r,i as p,e as T,V as y,d as m,f as A,h as P,s as D,_}from"./lit-element-DlPYl0ax.js";import{n as u}from"./property-KzhXVXCE.js";const R={};function U(e,i,t){switch(e[0]){case"item/select":I(e[1],t).then(s=>i(n=>({...n,item:s})));break;case"item/save":M(e[1],t).then(s=>i(n=>({...n,item:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlist/save":B(e[1],t).then(s=>i(n=>({...n,wishlist:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlistList/select":F(t).then(s=>i(n=>({...n,wishlistList:s})));break;case"wishlist/select":j(e[1],t).then(s=>i(n=>({...n,wishlist:s})));break;case"wishlistItems/select":L(e[1],t).then(s=>i(n=>({...n,itemList:s})));break;default:const a=e[0];throw new Error(`Unhandled Auth message "${a}"`)}}function I(e,i){return fetch(`/api/items/${e.itemid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Item:",t),t})}function F(e){return fetch("/api/wishlists",{headers:d.headers(e)}).then(i=>{if(i.status!==200)throw"Failed to load wishlists";return i.json()}).then(i=>{if(console.log("JSON Returned: ",i),i)return console.log("MAKE WISHLIST: ",i),i})}function j(e,i){return fetch(`/api/wishlists/${e.listid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Wishlist:",t),t})}function L(e,i){return j(e,i).then(t=>t&&t.itemids?Promise.all(t.itemids.map(a=>I({itemid:a},i))):[]).then(t=>(console.log("Items:",t),t))}function M(e,i){return fetch(`/api/items/${e.itemid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.item)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save item for ${e.itemid}`)}).then(t=>{if(t)return t})}function B(e,i){return fetch(`/api/wishlists/${e.listid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.wishlist)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save wishlist for ${e.listid}`)}).then(t=>{if(t)return t})}function E(e){const t=e.target.checked;T.relay(e,"dark-mode",{checked:t})}const z=class z extends N{render(){return r`
       <header>
             <a href="/" class="logo-container">
                 <svg class="icon logo-icon">
@@ -66,7 +66,7 @@ import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s a
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function k(e){return m({...e,state:!0,attribute:!1})}const C=class C extends N{render(){return r`
+ */function k(e){return u({...e,state:!0,attribute:!1})}const C=class C extends N{render(){return r`
       <div class="home-button-container">
         <a href="/app/wishlists">
           <svg class="icon">
@@ -166,7 +166,7 @@ import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s a
               <p class="detail"><strong>Style: </strong><span>${i.itemStyle}</span></p>
               <p class="detail"><strong>Type of Clothing: </strong><span>${i.itemType}</span></p>
             </div>
-          </div>`:r``}_handleSubmit(i){this.dispatchMessage(["item/save",{itemid:this.itemid,item:i.detail,onSuccess:()=>P.dispatch(this,"history/navigate",{href:`/app/items/${this.itemid}`}),onFailure:t=>console.log("ERROR:",t)}])}};x.uses=u({"mu-form":A.Element,"home-button":h}),x.styles=p`
+          </div>`:r``}_handleSubmit(i){this.dispatchMessage(["item/save",{itemid:this.itemid,item:i.detail,onSuccess:()=>P.dispatch(this,"history/navigate",{href:`/app/items/${this.itemid}`}),onFailure:t=>console.log("ERROR:",t)}])}};x.uses=m({"mu-form":A.Element,"home-button":h}),x.styles=p`
     .link-container {
       display: flex;
       justify-content: center;
@@ -285,11 +285,11 @@ import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s a
       font-size: 30px;
       margin: 5px 0;
     }
-  `;let c=x;O([m({attribute:"item-id"})],c.prototype,"itemid",2);O([m({type:Boolean})],c.prototype,"edit",2);O([k()],c.prototype,"item",1);const b=class b extends y{constructor(){super("dreamin:model")}render(){return r`
+  `;let c=x;O([u({attribute:"item-id"})],c.prototype,"itemid",2);O([u({type:Boolean})],c.prototype,"edit",2);O([k()],c.prototype,"item",1);const b=class b extends y{constructor(){super("dreamin:model")}render(){return r`
       <div class="container">
         <p>Hi Hugh</p>
       </div>
-    `}};b.uses=u({}),b.styles=p`
+    `}};b.uses=m({}),b.styles=p`
     .container {
       display: flex;
       justify-content: center;
@@ -319,7 +319,7 @@ import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s a
       <div class="wishlist-container">
         ${this.wishlistList.map(i)}
       </div>
-    `}};v.uses=u({"home-button":h}),v.styles=p`
+    `}};v.uses=m({"home-button":h}),v.styles=p`
     .title-container {
       display: flex;
       background-color: var(--color-background-page-alt);
@@ -461,7 +461,7 @@ import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s a
                     <div class="items-container">
                         ${t?t.map(a):r`<p>No items in this wishlist</p>`}
                     </div>
-                `:r``}_handleSubmit(i){this.dispatchMessage(["wishlist/save",{listid:this.listid,wishlist:i.detail,onSuccess:()=>P.dispatch(this,"history/navigate",{href:`/app/wishlists/${this.listid}`}),onFailure:t=>console.log("ERROR:",t)}])}};w.uses=u({"home-button":h}),w.styles=p`
+                `:r``}_handleSubmit(i){this.dispatchMessage(["wishlist/save",{listid:this.listid,wishlist:i.detail,onSuccess:()=>P.dispatch(this,"history/navigate",{href:`/app/wishlists/${this.listid}`}),onFailure:t=>console.log("ERROR:",t)}])}};w.uses=m({"home-button":h}),w.styles=p`
         .link-container {
             display: flex;
             justify-content: center;
@@ -621,7 +621,7 @@ import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s a
             align-items: center;
             justify-content: center;
         }
-    `;let l=w;$([m({attribute:"list-id"})],l.prototype,"listid",2);$([m({type:Boolean})],l.prototype,"edit",2);$([k()],l.prototype,"wishlist",1);$([k()],l.prototype,"items",1);const X=[{auth:"protected",path:"/app/items/:id",view:e=>r`
+    `;let l=w;$([u({attribute:"list-id"})],l.prototype,"listid",2);$([u({type:Boolean})],l.prototype,"edit",2);$([k()],l.prototype,"wishlist",1);$([k()],l.prototype,"items",1);const X=[{auth:"protected",path:"/app/items/:id",view:e=>r`
       <item-view item-id=${e.id}></tour-view>
     `},{auth:"protected",path:"/app/items/:id/edit",view:e=>r`
       <item-view edit item-id=${e.id}></tour-view>
@@ -631,4 +631,4 @@ import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s a
       <wishlist-view edit list-id=${e.id}></wishlist-view>
     `},{auth:"protected",path:"/app/wishlists",view:()=>r`
       <wishlists-view></wishlists-view>
-    `},{path:"/",redirect:"/app/wishlists"}];class Z extends N{render(){return r`<mu-switch></mu-switch>`}connectedCallback(){super.connectedCallback(),f.initializeOnce()}}u({"mu-auth":d.Provider,"mu-history":P.Provider,"mu-store":class extends D.Provider{constructor(){super(U,R,"dreamin:auth")}},"mu-switch":class extends _.Element{constructor(){super(X,"dreamin:history","dreamin:auth")}},"dreamin-app":Z,"dreamcart-header":f,"item-view":c,"home-view":S,"wishlists-view":g,"wishlist-view":l});
+    `},{path:"/",redirect:"/app/wishlists"}];class Z extends N{render(){return r`<mu-switch></mu-switch>`}connectedCallback(){super.connectedCallback(),f.initializeOnce()}}m({"mu-auth":d.Provider,"mu-history":P.Provider,"mu-store":class extends D.Provider{constructor(){super(U,R,"dreamin:auth")}},"mu-switch":class extends _.Element{constructor(){super(X,"dreamin:history","dreamin:auth")}},"dreamin-app":Z,"dreamcart-header":f,"item-view":c,"home-view":S,"wishlists-view":g,"wishlist-view":l});
