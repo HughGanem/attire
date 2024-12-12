@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="preconnect"
       href="https://fonts.googleapis.com" />
@@ -13,47 +14,114 @@
       href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,700;1,700&family=Merriweather:wght@400;700&display=swap"
       rel="stylesheet" />
     <style>
+      :root {
+        --primary-color: #4caf50;
+        --secondary-color: #f4f4f4;
+        --text-color: #333;
+        --font-primary: 'Kanit', sans-serif;
+        --font-secondary: 'Merriweather', serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-primary);
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
       .page {
-        height: 100vh;
-        grid-template-rows: 1fr fit-content(1fr) 1fr;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 1rem;
+        width: 100%;
+        max-width: 480px;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        border-radius: 8px;
       }
-      main.card {
-        align-self: center;
-        grid-column: 3 / span 4;
-      }
+
       h2 {
-        grid-column: start / end;
-        align-self: end;
+        margin: 0;
+        font-size: 1.8rem;
+        text-align: center;
+        font-family: var(--font-main);
+        color: var(--color-text-main);
       }
+
+      main.card {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 1rem;
+      }
+
+      input {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
       p {
-        grid-column: 2 / -2;
+        margin: 0;
+        font-size: 0.9rem;
         text-align: center;
       }
+
+      p a {
+        color: var(--color-text-main);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      p a:hover {
+        text-decoration: underline;
+      }
     </style>
-    <script type="module" crossorigin src="/assets/login-ZQXyEU1L.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/property-D5dKPTDe.js">
+    <script type="module" crossorigin src="/assets/login-Jiv2k_gS.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/property-DB8J0kcg.js">
     <link rel="stylesheet" crossorigin href="/assets/property-Un50KwDH.css">
   </head>
-  <body class="page">
-    <mu-auth>
-      <h2>User Login</h2>
-      <main class="card">
-        <login-form>
-          <label>
-            <span>Username:</span>
-            <input name="username" autocomplete="off" />
-          </label>
-          <label>
-            <span>Password:</span>
-            <input type="password" name="password" />
-          </label>
-        </login-form>
-      </main>
-      <p>
-        Or did you want to
-        <a href="./newuser.html">Sign up as a new user</a>
-        ?
-      </p>
-    </mu-auth>
+  <body>
+    <div class="page">
+      <mu-auth>
+        <h2>User Login</h2>
+        <main class="card">
+          <login-form>
+            <label>
+              <span>Username:</span>
+              <input name="username" autocomplete="off" />
+            </label>
+            <label>
+              <span>Password:</span>
+              <input type="password" name="password" />
+            </label>
+          </login-form>
+        </main>
+        <p>
+          Or did you want to
+          <a href="./newuser.html">Sign up as a new user</a>
+          ?
+        </p>
+      </mu-auth>
+    </div>
   </body>
 </html>

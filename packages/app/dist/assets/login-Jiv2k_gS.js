@@ -1,4 +1,4 @@
-import{d as c,b as u,r as d,x as h,i as m,e as f,n as g,a as p}from"./property-D5dKPTDe.js";var _=Object.defineProperty,v=(n,e,s,i)=>{for(var r=void 0,a=n.length-1,l;a>=0;a--)(l=n[a])&&(r=l(e,s,r)||r);return r&&_(e,s,r),r};c({"restful-form":u.FormElement});const o=class o extends d{constructor(){super(...arguments),this.message=""}render(){return h`
+import{d as c,b as u,r as d,x as h,i as m,e as f,n as g,a as p}from"./property-DB8J0kcg.js";var _=Object.defineProperty,v=(n,e,s,i)=>{for(var r=void 0,a=n.length-1,l;a>=0;a--)(l=n[a])&&(r=l(e,s,r)||r);return r&&_(e,s,r),r};c({"restful-form":u.FormElement});const o=class o extends d{constructor(){super(...arguments),this.message=""}render(){return h`
       <restful-form
         new
         .init=${{username:"",password:""}}

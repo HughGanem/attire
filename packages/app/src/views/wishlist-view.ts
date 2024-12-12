@@ -1,11 +1,16 @@
-import { View } from "@calpoly/mustang";
+import { View, define } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import type { Item } from "server/models";
+import { HomeButtonElement } from "../components/home-button.ts";
 
 export class WishlistViewElement extends View<Model, Msg> {
+    static uses = define({
+        "home-button": HomeButtonElement
+    });
+
     @property({ attribute: "list-id", reflect: true })
     listid?: string;
 
@@ -77,6 +82,7 @@ export class WishlistViewElement extends View<Model, Msg> {
 
         if (wishlist) {
             return html`
+                <home-button></home-button>
                 <div class="tool-bar">
                     <div class="title-container">
                         <h1>

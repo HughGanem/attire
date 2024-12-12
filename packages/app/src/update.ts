@@ -14,6 +14,20 @@ export default function update(
         apply((model) => ({ ...model, item }))
       );
       break;
+    case "item/save":
+      saveItem(message[1], user)
+        .then((item) =>
+          apply((model) => ({ ...model, item }))
+        )
+        .then(() => {
+          const { onSuccess } = message[1];
+          if (onSuccess) onSuccess();
+        })
+        .catch((error: Error) => {
+          const { onFailure } = message[1];
+          if (onFailure) onFailure(error);
+        });
+      break;
     case "wishlistList/select":
       selectWishlists(user).then((wishlistList: Wishlist[] | undefined) =>
         apply((model) => ({ ...model, wishlistList }))
@@ -105,5 +119,33 @@ function selectWishlistItems(msg: { listid: string }, user: Auth.User) {
     .then((items) => {
       console.log("Items:", items);
       return items as Item[];  // Return the list of items
+    });
+}
+
+function saveItem(
+  msg: {
+    itemid: string;
+    item: Item;
+  },
+  user: Auth.User
+) {
+  return fetch(`/api/items/${msg.itemid}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      ...Auth.headers(user)
+    },
+    body: JSON.stringify(msg.item)
+  })
+    .then((response: Response) => {
+      if (response.status === 200) return response.json();
+      else
+        throw new Error(
+          `Failed to save item for ${msg.itemid}`
+        );
+    })
+    .then((json: unknown) => {
+      if (json) return json as Item;
+      return undefined;
     });
 }

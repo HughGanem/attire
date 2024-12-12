@@ -1,11 +1,16 @@
-import { View } from "@calpoly/mustang";
+import { define, View } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { state } from "lit/decorators.js";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import { Wishlist } from "server/models";
+import { HomeButtonElement } from "../components/home-button.ts";
 
 export class WistlistsViewElement extends View<Model, Msg> {
+  static uses = define({
+    "home-button": HomeButtonElement
+  });
+
   @state()
   get wishlistList() {
     return this.model.wishlistList || [];
@@ -31,7 +36,7 @@ export class WistlistsViewElement extends View<Model, Msg> {
               <span>${name}</span>
             </h2>
             <div class="wishlist-image">
-              <img src="${imageUrl}" alt="${name}"/>
+              <img src="${imageUrl}" alt="${name}" />
             </div>
             <div class="wishlist-budget">
               <span>$${String(budget.toFixed(2))}</span>
@@ -71,6 +76,7 @@ export class WistlistsViewElement extends View<Model, Msg> {
       margin-top: 0;
       margin-bottom: 0;
     }
+    
     .wishlist-container {
       display: flex;
       flex-wrap: wrap;
@@ -87,19 +93,19 @@ export class WistlistsViewElement extends View<Model, Msg> {
     .wishlist {
       background-color: var(--color-background-page-alt);
       border-radius: 25px;
-      height: 500px;
-      width: 500px;
+      height: 450px;
+      width: 450px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
       padding: 20px;
       margin: 10px;
-      position: relative; /* Make wishlist a positioning context */
+      position: relative;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .wishlist-title {
       font-family: 'Nunito Sans', sans-serif;
-      font-size: 40px;
+      font-size: 36px;
       margin: 10px 0;
       text-decoration: none;
       text-align: center;
@@ -107,15 +113,16 @@ export class WistlistsViewElement extends View<Model, Msg> {
 
     .wishlist-budget {
       font-family: 'Nunito Sans', sans-serif;
-      font-size: 30px; 
+      font-size: 28px; 
       margin-top: 10px; 
     }
 
-    .wishlist-image slot::slotted(img) {
-      width: 100%;
-      height: 400px;
+    .wishlist-image img {
+      width: 95%; 
+      max-width: 450px; 
+      max-height: 450px;
       object-fit: cover;
-      border-radius: 25px;
+      border-radius: 5%; /* Makes the image rounded */
       transition: transform 0.2s;
     }
 
@@ -124,7 +131,7 @@ export class WistlistsViewElement extends View<Model, Msg> {
       transform: scale(1.05);
     }
 
-    .wishlist:hover .wishlist-image slot::slotted(img) {
+    .wishlist:hover .wishlist-image img {
       transform: scale(1.05);
     }
   `;
