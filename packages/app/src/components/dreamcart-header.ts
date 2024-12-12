@@ -8,6 +8,10 @@ function toggleDarkMode(ev: InputEvent) {
     Events.relay(ev, "dark-mode", { checked });
 }
 
+function signOutUser(ev: Event) {
+  Events.relay(ev, "auth:message", ["auth/signout"]);
+}
+
 export class DreamCartHeaderElement extends LitElement {
   render() {
     return html`
@@ -24,18 +28,36 @@ export class DreamCartHeaderElement extends LitElement {
                     <input type="checkbox" autocomplete="off" />
                     Dark mode
                 </label>
-                <a id="userid">
-                    Hello, <span></span>
+                <a href="#" 
+                  @click=${signOutUser} 
+                  class="sign-out-link">
+                  Sign out
                 </a>
-                <a href="/login">
-                  <button id="signout">Sign Out</button>
-                </a>
+
             </div>
         </header>
     `;
   }
 
   static styles = css`
+    .sign-out-link {
+      display: inline-block; /* Allows padding without breaking layout */
+      color: var(--color-text-main); /* Fallback if variable not defined */
+      background-color: var(--header-text);
+      text-decoration: none; /* Removes underline */
+      padding: 8px 16px; /* Adds clickable area */
+      border: 1px solid var(--color-text-main); /* Matches link color */
+      border-radius: 4px; /* Rounded edges */
+      font-size: 1rem; /* Adjusts text size */
+      transition: all 0.3s ease; /* Smooth hover effects */
+    }
+
+    .sign-out-link:hover {
+      background-color: var(--color-text-main, #007BFF);
+      color: var(--background-color, #FFF); /* Matches background */
+      text-decoration: underline; /* Optionally add underline back */
+    }
+
     header {
         color: var(--header-text);
         background-color: var(--color-header);
