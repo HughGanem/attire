@@ -24,7 +24,7 @@ export class WishlistViewElement extends View<Model, Msg> {
 
     @state()
     get items() {
-    return this.model.itemList;
+        return this.model.itemList;
     }
 
     constructor() {
@@ -93,21 +93,21 @@ export class WishlistViewElement extends View<Model, Msg> {
                         </a>
                     </div>
                     <div class="form-container">
-                    <mu-form .init=${this.wishlist} @mu-form:submit=${this._handleSubmit}>
-                        <label>
-                            <span>Name</span>
-                            <input name="name" />
-                        </label>
-                        <label>
-                            <span>Budget</span>
-                            <input name="budget" />
-                        </label>
-                        <label>
-                            <span>Image</span>
-                            <input name="imageUrl" />
-                        </label>
-                    </mu-form>
-                </div>
+                        <mu-form .init=${this.wishlist} @mu-form:submit=${this._handleSubmit}>
+                            <label>
+                                <span>Name</span>
+                                <input name="name" />
+                            </label>
+                            <label>
+                                <span>Budget</span>
+                                <input name="budget" />
+                            </label>
+                            <label>
+                                <span>Image</span>
+                                <input name="imageUrl" />
+                            </label>
+                        </mu-form>
+                    </div>
 
                     <div class="items-container">
                         ${items
@@ -158,9 +158,9 @@ export class WishlistViewElement extends View<Model, Msg> {
             margin: 40px auto;
             background-color: var(--color-background-page-alt);
             border-radius: 25px;
-            }
+        }
 
-            .view-link {
+        .view-link {
             display: inline-block;
             padding: 0.75rem 1.5rem;
             font-family: 'Nunito Sans', sans-serif;
@@ -169,27 +169,26 @@ export class WishlistViewElement extends View<Model, Msg> {
             text-decoration: none; 
             transition: background-color 0.3s ease, transform 0.2s ease;
             text-align: center;
-            }
+        }
 
-            .link-container:hover,
-            .link-container:focus {
+        .link-container:hover, .link-container:focus {
             background-color: #005fa3; /* Darker shade for hover */
             transform: translateY(-2px); /* Subtle lift */
             outline: none;
             }
 
-            .link-container:active {
+        .link-container:active {
             background-color: #00457a; /* Even darker shade */
             transform: translateY(1px); /* Slight depress effect */
-            }
+        }
 
-            .form-container {
+        .form-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            }
+        }
 
-            mu-form {
+        mu-form {
             display: flex;
             flex-direction: column;
             gap: 1rem; /* Add spacing between labels */
@@ -199,29 +198,29 @@ export class WishlistViewElement extends View<Model, Msg> {
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            }
+        }
 
-            label {
+        label {
             display: flex;
             flex-direction: column;
             font-family: Arial, sans-serif;
             font-size: 1rem;
             color: #333;
-            }
+        }
 
-            input {
+        input {
             margin-top: 0.5rem;
             padding: 0.5rem;
             font-size: 1rem;
             border: 1px solid #ccc;
             border-radius: 4px;
-            }
+        }
 
-            input:focus {
+        input:focus {
             outline: none;
             border-color: #0078d4; /* Optional focus color */
             box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
-            }
+        }
 
         .items-container {
             display: flex;
@@ -324,5 +323,5 @@ export class WishlistViewElement extends View<Model, Msg> {
               console.log("ERROR:", error)
           }
         ]);
-      }
+    }
 }

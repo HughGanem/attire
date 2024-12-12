@@ -42,6 +42,20 @@ export default function update(
           if (onFailure) onFailure(error);
         });
       break;
+    case "wishlist/create":
+      createWishlist(message[1], user)
+        .then((wishlist) =>
+          apply((model) => ({ ...model, wishlist }))
+        )
+        .then(() => {
+          const { onSuccess } = message[1];
+          if (onSuccess) onSuccess();
+        })
+        .catch((error: Error) => {
+          const { onFailure } = message[1];
+          if (onFailure) onFailure(error);
+        });
+      break;
     case "wishlistList/select":
       selectWishlists(user).then((wishlistList: Wishlist[] | undefined) =>
         apply((model) => ({ ...model, wishlistList }))
@@ -184,6 +198,33 @@ function saveWishlist(
       else
         throw new Error(
           `Failed to save wishlist for ${msg.listid}`
+        );
+    })
+    .then((json: unknown) => {
+      if (json) return json as Wishlist;
+      return undefined;
+    });
+}
+
+function createWishlist(
+  msg: {
+    wishlist: Wishlist;
+  },
+  user: Auth.User
+) {
+  return fetch(`/api/wishlists`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...Auth.headers(user)
+    },
+    body: JSON.stringify(msg.wishlist)
+  })
+    .then((response: Response) => {
+      if (response.status === 201) return response.json();
+      else
+        throw new Error(
+          `Failed to create wishlist for ${msg.wishlist.name}`
         );
     })
     .then((json: unknown) => {

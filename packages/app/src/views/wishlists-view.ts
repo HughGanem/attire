@@ -1,4 +1,4 @@
-import { define, View } from "@calpoly/mustang";
+import { define, View, Form, History } from "@calpoly/mustang";
 import { css, html } from "lit";
 import { state } from "lit/decorators.js";
 import { Msg } from "../messages";
@@ -52,6 +52,23 @@ export class WistlistsViewElement extends View<Model, Msg> {
       </div>
       <div class="wishlist-container">
         ${this.wishlistList.map(renderWishlist)}
+      </div>
+      <div class="form-container">
+        <h2>Create a Wishlist</h2>
+        <mu-form @mu-form:submit=${this._handleSubmit}>
+          <label>
+            <span>Name</span>
+            <input name="name" />
+          </label>
+          <label>
+            <span>Budget</span>
+            <input name="budget" />
+          </label>
+          <label>
+            <span>Image</span>
+            <input name="imageUrl" />
+          </label>
+        </mu-form>
       </div>
     `;
   }
@@ -134,5 +151,71 @@ export class WistlistsViewElement extends View<Model, Msg> {
     .wishlist:hover .wishlist-image img {
       transform: scale(1.05);
     }
+    
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 30px auto; /* Adds spacing around the form */
+    }
+
+    .form-container h2 {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 28px;
+      color: var(--color-text-main);
+      margin-bottom: 1rem; /* Adds spacing between the title and form */
+    }
+
+    mu-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; /* Adds spacing between form fields */
+      width: 100%;
+      max-width: 400px; /* Optional max-width for form */
+      background: white; /* Optional background for form */
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    input {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0078d4; /* Optional focus color */
+      box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
+    }
   `;
+
+  _handleSubmit(event: Form.SubmitEvent<Wishlist>) {
+    this.dispatchMessage([
+      "wishlist/create",
+      {
+        wishlist: event.detail,
+        onSuccess: () => {
+          this.dispatchMessage(["wishlistList/select"]);
+          History.dispatch(this, "history/navigate", {
+            href: `/app/wishlists`
+          });
+        },
+        onFailure: (error: Error) =>
+          console.log("ERROR:", error)
+      }
+    ]);
+  }  
 }

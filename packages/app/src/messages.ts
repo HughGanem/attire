@@ -20,4 +20,9 @@ export type Msg =
       onFailure?: (err: Error) => void;
     }
   ]
+  | ["wishlist/create", {
+    wishlist: Wishlist;
+    onSuccess?: () => void;
+    onFailure?: (err: Error) => void;
+  }]
   | ["wishlistItems/select", { listid: string}];
