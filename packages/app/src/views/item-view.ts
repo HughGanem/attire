@@ -209,6 +209,7 @@ export class ItemViewElement extends View<Model, Msg> {
       border-color: #0078d4; /* Optional focus color */
       box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
     }
+      
     .information-container {
       display: flex;
       flex-direction: column;

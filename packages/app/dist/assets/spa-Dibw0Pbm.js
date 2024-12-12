@@ -1,4 +1,4 @@
-import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s as A,_}from"./property-DB8J0kcg.js";const U={};function L(s,t,e){switch(s[0]){case"item/select":I(s[1],e).then(i=>t(n=>({...n,item:i})));break;case"item/save":F(s[1],e).then(i=>t(n=>({...n,item:i}))).then(()=>{const{onSuccess:i}=s[1];i&&i()}).catch(i=>{const{onFailure:n}=s[1];n&&n(i)});break;case"wishlistList/select":R(e).then(i=>t(n=>({...n,wishlistList:i})));break;case"wishlist/select":j(s[1],e).then(i=>t(n=>({...n,wishlist:i})));break;case"wishlistItems/select":M(s[1],e).then(i=>t(n=>({...n,itemList:i})));break;default:const a=s[0];throw new Error(`Unhandled Auth message "${a}"`)}}function I(s,t){return fetch(`/api/items/${s.itemid}`,{headers:h.headers(t)}).then(e=>{if(e.status===200)return e.json()}).then(e=>{if(e)return console.log("Item:",e),e})}function R(s){return fetch("/api/wishlists",{headers:h.headers(s)}).then(t=>{if(t.status!==200)throw"Failed to load wishlists";return t.json()}).then(t=>{if(console.log("JSON Returned: ",t),t)return console.log("MAKE WISHLIST: ",t),t})}function j(s,t){return fetch(`/api/wishlists/${s.listid}`,{headers:h.headers(t)}).then(e=>{if(e.status===200)return e.json()}).then(e=>{if(e)return console.log("Wishlist:",e),e})}function M(s,t){return j(s,t).then(e=>e&&e.itemids?Promise.all(e.itemids.map(a=>I({itemid:a},t))):[]).then(e=>(console.log("Items:",e),e))}function F(s,t){return fetch(`/api/items/${s.itemid}`,{method:"PUT",headers:{"Content-Type":"application/json",...h.headers(t)},body:JSON.stringify(s.item)}).then(e=>{if(e.status===200)return e.json();throw new Error(`Failed to save item for ${s.itemid}`)}).then(e=>{if(e)return e})}function B(s){const e=s.target.checked;T.relay(s,"dark-mode",{checked:e})}const z=class z extends S{render(){return r`
+import{a as d,r as N,x as r,i as p,e as T,n as m,V as y,d as u,f as A,h as P,s as D,_}from"./property-DB8J0kcg.js";const R={};function U(e,i,t){switch(e[0]){case"item/select":I(e[1],t).then(s=>i(n=>({...n,item:s})));break;case"item/save":M(e[1],t).then(s=>i(n=>({...n,item:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlist/save":B(e[1],t).then(s=>i(n=>({...n,wishlist:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlistList/select":F(t).then(s=>i(n=>({...n,wishlistList:s})));break;case"wishlist/select":j(e[1],t).then(s=>i(n=>({...n,wishlist:s})));break;case"wishlistItems/select":L(e[1],t).then(s=>i(n=>({...n,itemList:s})));break;default:const a=e[0];throw new Error(`Unhandled Auth message "${a}"`)}}function I(e,i){return fetch(`/api/items/${e.itemid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Item:",t),t})}function F(e){return fetch("/api/wishlists",{headers:d.headers(e)}).then(i=>{if(i.status!==200)throw"Failed to load wishlists";return i.json()}).then(i=>{if(console.log("JSON Returned: ",i),i)return console.log("MAKE WISHLIST: ",i),i})}function j(e,i){return fetch(`/api/wishlists/${e.listid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Wishlist:",t),t})}function L(e,i){return j(e,i).then(t=>t&&t.itemids?Promise.all(t.itemids.map(a=>I({itemid:a},i))):[]).then(t=>(console.log("Items:",t),t))}function M(e,i){return fetch(`/api/items/${e.itemid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.item)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save item for ${e.itemid}`)}).then(t=>{if(t)return t})}function B(e,i){return fetch(`/api/wishlists/${e.listid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.wishlist)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save wishlist for ${e.listid}`)}).then(t=>{if(t)return t})}function E(e){const t=e.target.checked;T.relay(e,"dark-mode",{checked:t})}const z=class z extends N{render(){return r`
       <header>
             <a href="/" class="logo-container">
                 <svg class="icon logo-icon">
@@ -8,7 +8,7 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
             </a>
             <div class="header-right">
                 <label
-                    @change=${B}>
+                    @change=${E}>
                     <input type="checkbox" autocomplete="off" />
                     Dark mode
                 </label>
@@ -20,7 +20,7 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
                 </a>
             </div>
         </header>
-    `}static initializeOnce(){function t(e,a){e.classList.toggle("dark-mode",a)}document.body.addEventListener("dark-mode",e=>{var a;return t(e.currentTarget,(a=e.detail)==null?void 0:a.checked)})}};z.styles=d`
+    `}static initializeOnce(){function i(t,a){t.classList.toggle("dark-mode",a)}document.body.addEventListener("dark-mode",t=>{var a;return i(t.currentTarget,(a=t.detail)==null?void 0:a.checked)})}};z.styles=p`
     header {
         color: var(--header-text);
         background-color: var(--color-header);
@@ -62,11 +62,11 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
         color: var(--header-text);
         cursor: pointer;
     }
-  `;let u=z;/**
+  `;let f=z;/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function $(s){return w({...s,state:!0,attribute:!1})}const O=class O extends S{render(){return r`
+ */function k(e){return m({...e,state:!0,attribute:!1})}const C=class C extends N{render(){return r`
       <div class="home-button-container">
         <a href="/app/wishlists">
           <svg class="icon">
@@ -74,7 +74,7 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
           </svg>
         </a>
       </div>
-    `}};O.styles=d`
+    `}};C.styles=p`
     .home-button-container {
       display: flex;
       align-items: center;
@@ -97,7 +97,7 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
     .home-button-container:hover .icon {
       transform: scale(1.2);
     }
-  `;let p=O;var E=Object.defineProperty,G=Object.getOwnPropertyDescriptor,P=(s,t,e,a)=>{for(var i=a>1?void 0:a?G(t,e):t,n=s.length-1,o;n>=0;n--)(o=s[n])&&(i=(a?o(t,e,i):o(i))||i);return a&&i&&E(t,e,i),i};const f=class f extends y{constructor(){super("dreamin:model"),this.itemid="",this.edit=!1}get item(){return this.model.item}attributeChangedCallback(t,e,a){super.attributeChangedCallback(t,e,a),console.log("ATTRIBUTE CHANGED",t,e,a),t==="item-id"&&e!==a&&a&&(console.log("Item Page:",a),this.dispatchMessage(["item/select",{itemid:a}]))}render(){const t=this.item;return console.log("RENDER",this.itemid,this.item),t?this.edit?r`
+  `;let h=C;var Y=Object.defineProperty,J=Object.getOwnPropertyDescriptor,O=(e,i,t,a)=>{for(var s=a>1?void 0:a?J(i,t):i,n=e.length-1,o;n>=0;n--)(o=e[n])&&(s=(a?o(i,t,s):o(s))||s);return a&&s&&Y(i,t,s),s};const x=class x extends y{constructor(){super("dreamin:model"),this.itemid="",this.edit=!1}get item(){return this.model.item}attributeChangedCallback(i,t,a){super.attributeChangedCallback(i,t,a),console.log("ATTRIBUTE CHANGED",i,t,a),i==="item-id"&&t!==a&&a&&(console.log("Item Page:",a),this.dispatchMessage(["item/select",{itemid:a}]))}render(){const i=this.item;return console.log("RENDER",this.itemid,this.item),i?this.edit?r`
           <home-button></home-button>
           <div class="link-container">
             <a href="/app/items/${this.itemid}" class="view-link">
@@ -151,22 +151,22 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
           </div>
           <div class="information-container">
             <span class="information-title">
-              <strong><span>${t.itemName}</span></strong>
+              <strong><span>${i.itemName}</span></strong>
             </span>
 
             <div class="information-image">
-              <img src="${t.itemImageUrl}" alt="${t.itemName}" />
+              <img src="${i.itemImageUrl}" alt="${i.itemName}" />
             </div>
 
             <div class="detail-container">
-              <p class="detail"><strong>Price: </strong>$<span>${(t.itemPrice||0).toFixed(2)}</span></p>
-              <p class="detail"><strong>Size: </strong><span>${t.itemSize}</span></p>
-              <p class="detail"><strong>Brand: </strong><span>${t.itemBrand}</span></p>
-              <p class="detail"><strong>Store: </strong><span>${t.itemStore}</span></p>
-              <p class="detail"><strong>Style: </strong><span>${t.itemStyle}</span></p>
-              <p class="detail"><strong>Type of Clothing: </strong><span>${t.itemType}</span></p>
+              <p class="detail"><strong>Price: </strong>$<span>${(i.itemPrice||0).toFixed(2)}</span></p>
+              <p class="detail"><strong>Size: </strong><span>${i.itemSize}</span></p>
+              <p class="detail"><strong>Brand: </strong><span>${i.itemBrand}</span></p>
+              <p class="detail"><strong>Store: </strong><span>${i.itemStore}</span></p>
+              <p class="detail"><strong>Style: </strong><span>${i.itemStyle}</span></p>
+              <p class="detail"><strong>Type of Clothing: </strong><span>${i.itemType}</span></p>
             </div>
-          </div>`:r``}_handleSubmit(t){this.dispatchMessage(["item/save",{itemid:this.itemid,item:t.detail,onSuccess:()=>C.dispatch(this,"history/navigate",{href:`/app/items/${this.itemid}`}),onFailure:e=>console.log("ERROR:",e)}])}};f.uses=m({"mu-form":D.Element,"home-button":p}),f.styles=d`
+          </div>`:r``}_handleSubmit(i){this.dispatchMessage(["item/save",{itemid:this.itemid,item:i.detail,onSuccess:()=>P.dispatch(this,"history/navigate",{href:`/app/items/${this.itemid}`}),onFailure:t=>console.log("ERROR:",t)}])}};x.uses=u({"mu-form":A.Element,"home-button":h}),x.styles=p`
     .link-container {
       display: flex;
       justify-content: center;
@@ -240,6 +240,7 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
       border-color: #0078d4; /* Optional focus color */
       box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
     }
+      
     .information-container {
       display: flex;
       flex-direction: column;
@@ -284,11 +285,11 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
       font-size: 30px;
       margin: 5px 0;
     }
-  `;let l=f;P([w({attribute:"item-id"})],l.prototype,"itemid",2);P([w({type:Boolean})],l.prototype,"edit",2);P([$()],l.prototype,"item",1);const x=class x extends y{constructor(){super("dreamin:model")}render(){return r`
+  `;let c=x;O([m({attribute:"item-id"})],c.prototype,"itemid",2);O([m({type:Boolean})],c.prototype,"edit",2);O([k()],c.prototype,"item",1);const b=class b extends y{constructor(){super("dreamin:model")}render(){return r`
       <div class="container">
         <p>Hi Hugh</p>
       </div>
-    `}};x.uses=m({}),x.styles=d`
+    `}};b.uses=u({}),b.styles=p`
     .container {
       display: flex;
       justify-content: center;
@@ -297,7 +298,7 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
       font-family: 'Arial', sans-serif;
       font-size: 24px;
     }
-  `;let k=x;var J=Object.defineProperty,W=Object.getOwnPropertyDescriptor,Y=(s,t,e,a)=>{for(var i=W(t,e),n=s.length-1,o;n>=0;n--)(o=s[n])&&(i=o(t,e,i)||i);return i&&J(t,e,i),i};const b=class b extends y{get wishlistList(){return this.model.wishlistList||[]}constructor(){super("dreamin:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["wishlistList/select"])}render(){const t=e=>{const{name:a,budget:i,imageUrl:n,listid:o}=e;return r`
+  `;let S=b;var W=Object.defineProperty,G=Object.getOwnPropertyDescriptor,K=(e,i,t,a)=>{for(var s=G(i,t),n=e.length-1,o;n>=0;n--)(o=e[n])&&(s=o(i,t,s)||s);return s&&W(i,t,s),s};const v=class v extends y{get wishlistList(){return this.model.wishlistList||[]}constructor(){super("dreamin:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["wishlistList/select"])}render(){const i=t=>{const{name:a,budget:s,imageUrl:n,listid:o}=t;return r`
         <a href="/app/wishlists/${o}">
           <div class="wishlist">
             <h2 class="wishlist-title">
@@ -307,7 +308,7 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
               <img src="${n}" alt="${a}" />
             </div>
             <div class="wishlist-budget">
-              <span>$${String(i.toFixed(2))}</span>
+              <span>$${String(s.toFixed(2))}</span>
             </div>
           </div>
         </a>
@@ -316,9 +317,9 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
         <h1>Wishlists</h1>
       </div>
       <div class="wishlist-container">
-        ${this.wishlistList.map(t)}
+        ${this.wishlistList.map(i)}
       </div>
-    `}};b.uses=m({"home-button":p}),b.styles=d`
+    `}};v.uses=u({"home-button":h}),v.styles=p`
     .title-container {
       display: flex;
       background-color: var(--color-background-page-alt);
@@ -396,39 +397,145 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
     .wishlist:hover .wishlist-image img {
       transform: scale(1.05);
     }
-  `;let g=b;Y([$()],g.prototype,"wishlistList");var K=Object.defineProperty,q=Object.getOwnPropertyDescriptor,N=(s,t,e,a)=>{for(var i=a>1?void 0:a?q(t,e):t,n=s.length-1,o;n>=0;n--)(o=s[n])&&(i=(a?o(t,e,i):o(i))||i);return a&&i&&K(t,e,i),i};const v=class v extends y{get wishlist(){return this.model.wishlist}get items(){return this.model.itemList}constructor(){super("dreamin:model")}attributeChangedCallback(t,e,a){super.attributeChangedCallback(t,e,a),console.log("ATTRIBUTE CHANGED",t,e,a),t==="list-id"&&e!==a&&a&&(console.log("Wishlist Page:",a),this.dispatchMessage(["wishlist/select",{listid:a}]),this.dispatchMessage(["wishlistItems/select",{listid:a}]))}render(){const t=this.wishlist,e=this.items;console.log("RENDER",this.listid,this.wishlist);const a=i=>r`
-                <a href="/app/items/${i.itemid}">
+  `;let g=v;K([k()],g.prototype,"wishlistList");var q=Object.defineProperty,Q=Object.getOwnPropertyDescriptor,$=(e,i,t,a)=>{for(var s=a>1?void 0:a?Q(i,t):i,n=e.length-1,o;n>=0;n--)(o=e[n])&&(s=(a?o(i,t,s):o(s))||s);return a&&s&&q(i,t,s),s};const w=class w extends y{constructor(){super("dreamin:model"),this.listid="",this.edit=!1}get wishlist(){return this.model.wishlist}get items(){return this.model.itemList}attributeChangedCallback(i,t,a){super.attributeChangedCallback(i,t,a),console.log("ATTRIBUTE CHANGED",i,t,a),i==="list-id"&&t!==a&&a&&(console.log("Wishlist Page:",a),this.dispatchMessage(["wishlist/select",{listid:a}]),this.dispatchMessage(["wishlistItems/select",{listid:a}]))}render(){const i=this.wishlist,t=this.items;console.log("RENDER",this.listid,this.wishlist);const a=s=>r`
+                <a href="/app/items/${s.itemid}">
                     <div class="item-container">
                         <h2 class="itemName">
-                            <span>${i.itemName}</span>
+                            <span>${s.itemName}</span>
                         </h2>
                         <div class="itemImageUrl">
-                            <img src="${i.itemImageUrl||"/default-image.jpg"}" alt="${i.itemName}" />
+                            <img src="${s.itemImageUrl||"/default-image.jpg"}" alt="${s.itemName}" />
                         </div>
                         <p class="itemPrice">
-                            Price: <span slot="product-price">$${i.itemPrice.toFixed(2)}</span>
+                            Price: <span slot="product-price">$${s.itemPrice.toFixed(2)}</span>
                         </p>
                     </div>
                 </a>
-            `;return t?r`
-                <home-button></home-button>
-                <div class="tool-bar">
-                    <div class="title-container">
-                        <h1>
-                            <span>${t.name}</span>
-                        </h1>
+            `;return i?this.edit?r`
+                    <home-button></home-button>
+                    <div class="link-container">
+                        <a href="/app/wishlists/${this.listid}" class="view-link">
+                            View
+                        </a>
                     </div>
-
-                    <div class="budget-container">
-                        <h1>Budget:</h1>
-                        <span>${t.budget.toFixed(2)}</span>
-                    </div>
+                    <div class="form-container">
+                    <mu-form .init=${this.wishlist} @mu-form:submit=${this._handleSubmit}>
+                        <label>
+                            <span>Name</span>
+                            <input name="name" />
+                        </label>
+                        <label>
+                            <span>Budget</span>
+                            <input name="budget" />
+                        </label>
+                        <label>
+                            <span>Image</span>
+                            <input name="imageUrl" />
+                        </label>
+                    </mu-form>
                 </div>
 
-                <div class="items-container">
-                    ${e?e.map(a):r`<p>No items in this wishlist</p>`}
-                </div>
-            `:r``}};v.uses=m({"home-button":p}),v.styles=d`
+                    <div class="items-container">
+                        ${t?t.map(a):r`<p>No items in this wishlist</p>`}
+                    </div>
+                `:r`
+                    <home-button></home-button>
+                    <div class="link-container">
+                        <a href="/app/wishlists/${this.listid}/edit" class="view-link">
+                            Edit
+                        </a>
+                    </div>
+                    <div class="tool-bar">
+                        <div class="title-container">
+                            <h1>
+                                <span>${i.name}</span>
+                            </h1>
+                        </div>
+
+                        <div class="budget-container">
+                            <h1>Budget:</h1>
+                            <span>${i.budget.toFixed(2)}</span>
+                        </div>
+                    </div>
+
+                    <div class="items-container">
+                        ${t?t.map(a):r`<p>No items in this wishlist</p>`}
+                    </div>
+                `:r``}_handleSubmit(i){this.dispatchMessage(["wishlist/save",{listid:this.listid,wishlist:i.detail,onSuccess:()=>P.dispatch(this,"history/navigate",{href:`/app/wishlists/${this.listid}`}),onFailure:t=>console.log("ERROR:",t)}])}};w.uses=u({"home-button":h}),w.styles=p`
+        .link-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 125px;
+            margin: 40px auto;
+            background-color: var(--color-background-page-alt);
+            border-radius: 25px;
+            }
+
+            .view-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 60px;
+            font-weight: bold;
+            text-decoration: none; 
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            }
+
+            .link-container:hover,
+            .link-container:focus {
+            background-color: #005fa3; /* Darker shade for hover */
+            transform: translateY(-2px); /* Subtle lift */
+            outline: none;
+            }
+
+            .link-container:active {
+            background-color: #00457a; /* Even darker shade */
+            transform: translateY(1px); /* Slight depress effect */
+            }
+
+            .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+            mu-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Add spacing between labels */
+            width: 100%;
+            max-width: 400px; /* Optional max-width for form */
+            background: white; /* Optional background for form */
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            }
+
+            label {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            color: #333;
+            }
+
+            input {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            }
+
+            input:focus {
+            outline: none;
+            border-color: #0078d4; /* Optional focus color */
+            box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
+            }
+
         .items-container {
             display: flex;
             flex-direction: column;
@@ -514,12 +621,14 @@ import{a as h,r as S,x as r,i as d,e as T,n as w,V as y,d as m,f as D,h as C,s a
             align-items: center;
             justify-content: center;
         }
-    `;let c=v;N([w({attribute:"list-id",reflect:!0})],c.prototype,"listid",2);N([$()],c.prototype,"wishlist",1);N([$()],c.prototype,"items",1);const Q=[{auth:"protected",path:"/app/items/:id",view:s=>r`
-      <item-view item-id=${s.id}></tour-view>
-    `},{auth:"protected",path:"/app/items/:id/edit",view:s=>r`
-      <item-view edit item-id=${s.id}></tour-view>
-    `},{auth:"protected",path:"/app/wishlists/:id",view:s=>r`
-      <wishlist-view list-id=${s.id}></wishlist-view>
+    `;let l=w;$([m({attribute:"list-id"})],l.prototype,"listid",2);$([m({type:Boolean})],l.prototype,"edit",2);$([k()],l.prototype,"wishlist",1);$([k()],l.prototype,"items",1);const X=[{auth:"protected",path:"/app/items/:id",view:e=>r`
+      <item-view item-id=${e.id}></tour-view>
+    `},{auth:"protected",path:"/app/items/:id/edit",view:e=>r`
+      <item-view edit item-id=${e.id}></tour-view>
+    `},{auth:"protected",path:"/app/wishlists/:id",view:e=>r`
+      <wishlist-view list-id=${e.id}></wishlist-view>
+    `},{auth:"protected",path:"/app/wishlists/:id/edit",view:e=>r`
+      <wishlist-view edit list-id=${e.id}></wishlist-view>
     `},{auth:"protected",path:"/app/wishlists",view:()=>r`
       <wishlists-view></wishlists-view>
-    `},{path:"/",redirect:"/app/wishlists"}];class X extends S{render(){return r`<mu-switch></mu-switch>`}connectedCallback(){super.connectedCallback(),u.initializeOnce()}}m({"mu-auth":h.Provider,"mu-history":C.Provider,"mu-store":class extends A.Provider{constructor(){super(L,U,"dreamin:auth")}},"mu-switch":class extends _.Element{constructor(){super(Q,"dreamin:history","dreamin:auth")}},"dreamin-app":X,"dreamcart-header":u,"item-view":l,"home-view":k,"wishlists-view":g,"wishlist-view":c});
+    `},{path:"/",redirect:"/app/wishlists"}];class Z extends N{render(){return r`<mu-switch></mu-switch>`}connectedCallback(){super.connectedCallback(),f.initializeOnce()}}u({"mu-auth":d.Provider,"mu-history":P.Provider,"mu-store":class extends D.Provider{constructor(){super(U,R,"dreamin:auth")}},"mu-switch":class extends _.Element{constructor(){super(X,"dreamin:history","dreamin:auth")}},"dreamin-app":Z,"dreamcart-header":f,"item-view":c,"home-view":S,"wishlists-view":g,"wishlist-view":l});

@@ -1,4 +1,4 @@
-import { Item } from "server/models";
+import { Item, Wishlist } from "server/models";
 
 export type Msg =
   | ["item/select", { itemid: string }]
@@ -12,4 +12,12 @@ export type Msg =
   ]
   | ["wishlistList/select"]
   | ["wishlist/select", { listid: string}]
+  | ["wishlist/save",
+    {
+      listid: string;
+      wishlist: Wishlist;
+      onSuccess?: () => void;
+      onFailure?: (err: Error) => void;
+    }
+  ]
   | ["wishlistItems/select", { listid: string}];

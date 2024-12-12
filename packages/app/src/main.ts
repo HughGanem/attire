@@ -33,6 +33,13 @@ const routes: Switch.Route[] = [
   },
   {
     auth: "protected",
+    path: "/app/wishlists/:id/edit",
+    view: (params: Switch.Params) => html`
+      <wishlist-view edit list-id=${params.id}></wishlist-view>
+    `
+  },
+  {
+    auth: "protected",
     path: "/app/wishlists",
     view: () => html`
       <wishlists-view></wishlists-view>
