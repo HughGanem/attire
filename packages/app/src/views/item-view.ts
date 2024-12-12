@@ -4,7 +4,6 @@ import { property, state } from "lit/decorators.js";
 import { Msg } from "../messages";
 import { Model } from "../model";
 
-// Define any custom elements you're using
 export class ItemViewElement extends View<Model, Msg> {
   @property({ attribute: "item-id", reflect: true })
   itemid?: string;

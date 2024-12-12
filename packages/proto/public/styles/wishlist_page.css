@@ -9,7 +9,7 @@
     text-decoration: none;
     color: var(--color-text-main);
     margin: 10px;
-  }
+}
 
 .tool-bar {
     display: grid;

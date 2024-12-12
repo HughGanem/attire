@@ -6,6 +6,8 @@ import { html, LitElement } from "lit";
 import { DreamCartHeaderElement } from "./components/dreamcart-header";
 import { ItemViewElement } from "./views/item-view";
 import { HomeViewElement } from "./views/home-view";
+import { WistlistsViewElement } from "./views/wishlists-view";
+import { WishlistViewElement } from "./views/wishlist-view";
 
 const routes: Switch.Route[] = [
   {
@@ -13,6 +15,20 @@ const routes: Switch.Route[] = [
     path: "/app/items/:id",
     view: (params: Switch.Params) => html`
       <item-view item-id=${params.id}></tour-view>
+    `
+  },
+  {
+    auth: "protected",
+    path: "/app/wishlists/:id",
+    view: (params: Switch.Params) => html`
+      <wishlist-view list-id=${params.id}></wishlist-view>
+    `
+  },
+  {
+    auth: "protected",
+    path: "/app/wishlists",
+    view: () => html`
+      <wishlists-view></wishlists-view>
     `
   },
   {
@@ -59,5 +75,7 @@ define({
   "dreamin-app": AppElement,
   "dreamcart-header": DreamCartHeaderElement,
   "item-view": ItemViewElement,
-  "home-view": HomeViewElement
+  "home-view": HomeViewElement,
+  "wishlists-view" : WistlistsViewElement,
+  "wishlist-view" : WishlistViewElement
 });

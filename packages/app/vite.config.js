@@ -11,7 +11,7 @@ export default {
     rollupOptions: {
       input: {
         spa: resolve(__dirname, "index.html"),
-        login: resolve(__dirname, "login.html")
+        login: resolve(__dirname, "dreaminlogin.html")
       }
     }
   }
