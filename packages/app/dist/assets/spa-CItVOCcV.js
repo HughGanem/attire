@@ -1,8 +1,8 @@
 import{a as d,r as N,x as r,i as h,e as j,V as y,d as m,f as F,h as P,s as T,_ as R}from"./lit-element-DlPYl0ax.js";import{n as u}from"./property-KzhXVXCE.js";const D={};function U(e,i,t){switch(e[0]){case"item/select":I(e[1],t).then(s=>i(n=>({...n,item:s})));break;case"item/save":L(e[1],t).then(s=>i(n=>({...n,item:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlist/save":B(e[1],t).then(s=>i(n=>({...n,wishlist:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlistList/select":_(t).then(s=>i(n=>({...n,wishlistList:s})));break;case"wishlist/select":A(e[1],t).then(s=>i(n=>({...n,wishlist:s})));break;case"wishlistItems/select":M(e[1],t).then(s=>i(n=>({...n,itemList:s})));break;default:const a=e[0];throw new Error(`Unhandled Auth message "${a}"`)}}function I(e,i){return fetch(`/api/items/${e.itemid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Item:",t),t})}function _(e){return fetch("/api/wishlists",{headers:d.headers(e)}).then(i=>{if(i.status!==200)throw"Failed to load wishlists";return i.json()}).then(i=>{if(console.log("JSON Returned: ",i),i)return console.log("MAKE WISHLIST: ",i),i})}function A(e,i){return fetch(`/api/wishlists/${e.listid}`,{headers:d.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Wishlist:",t),t})}function M(e,i){return A(e,i).then(t=>t&&t.itemids?Promise.all(t.itemids.map(a=>I({itemid:a},i))):[]).then(t=>(console.log("Items:",t),t))}function L(e,i){return fetch(`/api/items/${e.itemid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.item)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save item for ${e.itemid}`)}).then(t=>{if(t)return t})}function B(e,i){return fetch(`/api/wishlists/${e.listid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(i)},body:JSON.stringify(e.wishlist)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save wishlist for ${e.listid}`)}).then(t=>{if(t)return t})}function E(e){const t=e.target.checked;j.relay(e,"dark-mode",{checked:t})}function Y(e){j.relay(e,"auth:message",["auth/signout"])}const O=class O extends N{render(){return r`
       <header>
             <a href="/" class="logo-container">
-                <svg class="icon logo-icon">
-                    <use src="/icons/accounts.svg#icon-logo" />
+                <svg class="icon">
+                  <use href="/icons/accounts.svg#icon-logo"></use>
                 </svg>
                 <h1 class="logo">DreamCart</h1>
             </a>
@@ -62,7 +62,7 @@ import{a as d,r as N,x as r,i as h,e as j,V as y,d as m,f as F,h as P,s as T,_ a
         font-size: 60px;
     }
 
-    .logo-container .logo-icon {
+    .logo-container .icon {
         width: 80px;
         height: 80px;
         fill: var(--header-text);

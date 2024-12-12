@@ -17,8 +17,8 @@ export class DreamCartHeaderElement extends LitElement {
     return html`
       <header>
             <a href="/" class="logo-container">
-                <svg class="icon logo-icon">
-                    <use src="/icons/accounts.svg#icon-logo" />
+                <svg class="icon">
+                  <use href="/icons/accounts.svg#icon-logo"></use>
                 </svg>
                 <h1 class="logo">DreamCart</h1>
             </a>
@@ -81,7 +81,7 @@ export class DreamCartHeaderElement extends LitElement {
         font-size: 60px;
     }
 
-    .logo-container .logo-icon {
+    .logo-container .icon {
         width: 80px;
         height: 80px;
         fill: var(--header-text);
