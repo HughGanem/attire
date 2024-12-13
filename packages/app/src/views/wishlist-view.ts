@@ -3,7 +3,7 @@ import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { Msg } from "../messages";
 import { Model } from "../model";
-import type { Item } from "server/models";
+import type { Wishlist, Item } from "server/models";
 import { HomeButtonElement } from "../components/home-button.ts";
 
 export class WishlistViewElement extends View<Model, Msg> {
@@ -180,7 +180,7 @@ export class WishlistViewElement extends View<Model, Msg> {
                     </div>
                     <div class="form-container">
                         <h2>Create an Item</h2>
-                        <mu-form @mu-form:submit=${this._handleSubmit}>
+                        <mu-form @mu-form:submit=${this._handleCreateSubmit}>
                             <label>
                                 <span>Name</span>
                                 <input name="itemName" />
@@ -431,7 +431,7 @@ export class WishlistViewElement extends View<Model, Msg> {
         }
     `;
 
-    _handleSubmit(event: Form.SubmitEvent<Item>) {
+    _handleCreateSubmit(event: Form.SubmitEvent<Item>) {
         this.dispatchMessage([
           "item/create",
           {
@@ -443,6 +443,22 @@ export class WishlistViewElement extends View<Model, Msg> {
                   href: `/app/wishlists/${this.listid}`
                 });
             },
+            onFailure: (error: Error) =>
+              console.log("ERROR:", error)
+          }
+        ]);
+    }
+
+    _handleSubmit(event: Form.SubmitEvent<Wishlist>) {
+        this.dispatchMessage([
+          "wishlist/save",
+          {
+            listid: this.listid,
+            wishlist: event.detail,
+            onSuccess: () =>
+              History.dispatch(this, "history/navigate", {
+                href: `/app/wishlists/${this.listid}`
+              }),
             onFailure: (error: Error) =>
               console.log("ERROR:", error)
           }
