@@ -3,7 +3,7 @@ import { css, html } from "lit";
 import { property, state } from "lit/decorators.js";
 import { Msg } from "../messages";
 import { Model } from "../model";
-import type { Item, Wishlist } from "server/models";
+import type { Item } from "server/models";
 import { HomeButtonElement } from "../components/home-button.ts";
 
 export class WishlistViewElement extends View<Model, Msg> {
@@ -114,6 +114,43 @@ export class WishlistViewElement extends View<Model, Msg> {
                             ? items.map(renderItems)
                             : html`<p>No items in this wishlist</p>`}
                     </div>
+                    <div class="form-container">
+                        <h2>Create a Wishlist</h2>
+                        <mu-form @mu-form:submit=${this._handleSubmit}>
+                            <label>
+                                <span>Name</span>
+                                <input name="itemName" />
+                            </label>
+                            <label>
+                                <span>Price</span>
+                                <input name="itemPrice" />
+                            </label>
+                            <label>
+                                <span>Size</span>
+                                <input name="itemSize" />
+                            </label>
+                            <label>
+                                <span>Brand</span>
+                                <input name="itemBrand" />
+                            </label>
+                            <label>
+                                <span>Store</span>
+                                <input name="itemStore" />
+                            </label>
+                            <label>
+                                <span>Style</span>
+                                <input name="itemStyle" />
+                            </label>
+                            <label>
+                                <span>Type</span>
+                                <input name="itemType" />
+                            </label>
+                            <label>
+                                <span>Image</span>
+                                <input name="itemImageUrl" />
+                            </label>
+                        </mu-form>
+                    </div>
                 `;
             } else {
                 return html`
@@ -140,6 +177,43 @@ export class WishlistViewElement extends View<Model, Msg> {
                         ${items
                             ? items.map(renderItems)
                             : html`<p>No items in this wishlist</p>`}
+                    </div>
+                    <div class="form-container">
+                        <h2>Create an Item</h2>
+                        <mu-form @mu-form:submit=${this._handleSubmit}>
+                            <label>
+                                <span>Name</span>
+                                <input name="itemName" />
+                            </label>
+                            <label>
+                                <span>Price</span>
+                                <input name="itemPrice" />
+                            </label>
+                            <label>
+                                <span>Size</span>
+                                <input name="itemSize" />
+                            </label>
+                            <label>
+                                <span>Brand</span>
+                                <input name="itemBrand" />
+                            </label>
+                            <label>
+                                <span>Store</span>
+                                <input name="itemStore" />
+                            </label>
+                            <label>
+                                <span>Style</span>
+                                <input name="itemStyle" />
+                            </label>
+                            <label>
+                                <span>Type</span>
+                                <input name="itemType" />
+                            </label>
+                            <label>
+                                <span>Image</span>
+                                <input name="itemImageUrl" />
+                            </label>
+                        </mu-form>
                     </div>
                 `;
             }
@@ -307,18 +381,68 @@ export class WishlistViewElement extends View<Model, Msg> {
             align-items: center;
             justify-content: center;
         }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto; /* Adds spacing around the form */
+        }
+
+        .form-container h2 {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 28px;
+            color: var(--color-text-main);
+            margin-bottom: 1rem; /* Adds spacing between the title and form */
+        }
+
+        mu-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Adds spacing between form fields */
+            width: 100%;
+            max-width: 400px; /* Optional max-width for form */
+            background: white; /* Optional background for form */
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        input {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0078d4; /* Optional focus color */
+            box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
+        }
     `;
 
-    _handleSubmit(event: Form.SubmitEvent<Wishlist>) {
+    _handleSubmit(event: Form.SubmitEvent<Item>) {
         this.dispatchMessage([
-          "wishlist/save",
+          "item/create",
           {
             listid: this.listid,
-            wishlist: event.detail,
-            onSuccess: () =>
-              History.dispatch(this, "history/navigate", {
-                href: `/app/wishlists/${this.listid}`
-              }),
+            item: event.detail,
+            onSuccess: () => {
+                this.dispatchMessage(["wishlist/select", { listid: this.listid }]);
+                History.dispatch(this, "history/navigate", {
+                  href: `/app/wishlists/${this.listid}`
+                });
+            },
             onFailure: (error: Error) =>
               console.log("ERROR:", error)
           }

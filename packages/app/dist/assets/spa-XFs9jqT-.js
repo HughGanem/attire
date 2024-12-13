@@ -1,4 +1,4 @@
-import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ as T}from"./lit-element-DlPYl0ax.js";import{n as u}from"./property-KzhXVXCE.js";const _={};function U(e,i,t){switch(e[0]){case"item/select":j(e[1],t).then(s=>i(n=>({...n,item:s})));break;case"item/save":L(e[1],t).then(s=>i(n=>({...n,item:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlist/save":B(e[1],t).then(s=>i(n=>({...n,wishlist:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlist/create":E(e[1],t).then(s=>i(n=>({...n,wishlist:s}))).then(()=>{const{onSuccess:s}=e[1];s&&s()}).catch(s=>{const{onFailure:n}=e[1];n&&n(s)});break;case"wishlistList/select":D(t).then(s=>i(n=>({...n,wishlistList:s})));break;case"wishlist/select":F(e[1],t).then(s=>i(n=>({...n,wishlist:s})));break;case"wishlistItems/select":M(e[1],t).then(s=>i(n=>({...n,itemList:s})));break;default:const a=e[0];throw new Error(`Unhandled Auth message "${a}"`)}}function j(e,i){return fetch(`/api/items/${e.itemid}`,{headers:c.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Item:",t),t})}function D(e){return fetch("/api/wishlists",{headers:c.headers(e)}).then(i=>{if(i.status!==200)throw"Failed to load wishlists";return i.json()}).then(i=>{if(console.log("JSON Returned: ",i),i)return console.log("MAKE WISHLIST: ",i),i})}function F(e,i){return fetch(`/api/wishlists/${e.listid}`,{headers:c.headers(i)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Wishlist:",t),t})}function M(e,i){return F(e,i).then(t=>t&&t.itemids?Promise.all(t.itemids.map(a=>j({itemid:a},i))):[]).then(t=>(console.log("Items:",t),t))}function L(e,i){return fetch(`/api/items/${e.itemid}`,{method:"PUT",headers:{"Content-Type":"application/json",...c.headers(i)},body:JSON.stringify(e.item)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save item for ${e.itemid}`)}).then(t=>{if(t)return t})}function B(e,i){return fetch(`/api/wishlists/${e.listid}`,{method:"PUT",headers:{"Content-Type":"application/json",...c.headers(i)},body:JSON.stringify(e.wishlist)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save wishlist for ${e.listid}`)}).then(t=>{if(t)return t})}function E(e,i){return fetch("/api/wishlists",{method:"POST",headers:{"Content-Type":"application/json",...c.headers(i)},body:JSON.stringify(e.wishlist)}).then(t=>{if(t.status===201)return t.json();throw new Error(`Failed to create wishlist for ${e.wishlist.name}`)}).then(t=>{if(t)return t})}function W(e){const t=e.target.checked;C.relay(e,"dark-mode",{checked:t})}function J(e){C.relay(e,"auth:message",["auth/signout"])}const P=class P extends O{render(){return r`
+import{a as l,r as O,x as r,i as p,e as T,V as y,d as h,f as F,h as k,s as U,_ as R}from"./lit-element-DlPYl0ax.js";import{n as u}from"./property-KzhXVXCE.js";const _={};function M(a,e,t){switch(a[0]){case"item/select":j(a[1],t).then(i=>e(n=>({...n,item:i})));break;case"item/save":E(a[1],t).then(i=>e(n=>({...n,item:i}))).then(()=>{const{onSuccess:i}=a[1];i&&i()}).catch(i=>{const{onFailure:n}=a[1];n&&n(i)});break;case"item/create":W(a[1],t).then(i=>e(n=>({...n,item:i}))).then(()=>{const{onSuccess:i}=a[1];i&&i()}).catch(i=>{const{onFailure:n}=a[1];n&&n(i)});break;case"wishlist/save":L(a[1],t).then(i=>e(n=>({...n,wishlist:i}))).then(()=>{const{onSuccess:i}=a[1];i&&i()}).catch(i=>{const{onFailure:n}=a[1];n&&n(i)});break;case"wishlist/create":J(a[1],t).then(i=>e(n=>({...n,wishlist:i}))).then(()=>{const{onSuccess:i}=a[1];i&&i()}).catch(i=>{const{onFailure:n}=a[1];n&&n(i)});break;case"wishlistList/select":D(t).then(i=>e(n=>({...n,wishlistList:i})));break;case"wishlist/select":A(a[1],t).then(i=>e(n=>({...n,wishlist:i})));break;case"wishlistItems/select":B(a[1],t).then(i=>e(n=>({...n,itemList:i})));break;default:const s=a[0];throw new Error(`Unhandled Auth message "${s}"`)}}function j(a,e){return fetch(`/api/items/${a.itemid}`,{headers:l.headers(e)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Item:",t),t})}function D(a){return fetch("/api/wishlists",{headers:l.headers(a)}).then(e=>{if(e.status!==200)throw"Failed to load wishlists";return e.json()}).then(e=>{if(console.log("JSON Returned: ",e),e)return console.log("MAKE WISHLIST: ",e),e})}function A(a,e){return fetch(`/api/wishlists/${a.listid}`,{headers:l.headers(e)}).then(t=>{if(t.status===200)return t.json()}).then(t=>{if(t)return console.log("Wishlist:",t),t})}function B(a,e){return A(a,e).then(t=>t&&t.itemids?Promise.all(t.itemids.map(s=>j({itemid:s},e))):[]).then(t=>(console.log("Items:",t),t))}function E(a,e){return fetch(`/api/items/${a.itemid}`,{method:"PUT",headers:{"Content-Type":"application/json",...l.headers(e)},body:JSON.stringify(a.item)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save item for ${a.itemid}`)}).then(t=>{if(t)return t})}function L(a,e){return fetch(`/api/wishlists/${a.listid}`,{method:"PUT",headers:{"Content-Type":"application/json",...l.headers(e)},body:JSON.stringify(a.wishlist)}).then(t=>{if(t.status===200)return t.json();throw new Error(`Failed to save wishlist for ${a.listid}`)}).then(t=>{if(t)return t})}function J(a,e){return fetch("/api/wishlists",{method:"POST",headers:{"Content-Type":"application/json",...l.headers(e)},body:JSON.stringify(a.wishlist)}).then(t=>{if(t.status===201)return t.json();throw new Error(`Failed to create wishlist for ${a.wishlist.name}`)}).then(t=>{if(t)return t})}function W(a,e){return fetch("/api/items/",{method:"POST",headers:{...l.headers(e),"Content-Type":"application/json"},body:JSON.stringify(a.item)}).then(t=>{if(!t.ok)throw new Error(`Failed to create item: ${t.status} - ${t.statusText}`);return t.json()}).then(t=>{const s=t.itemid,i=`/api/wishlists/${a.listid}`;return fetch(i,{method:"GET",headers:{"Content-Type":"application/json",...l.headers(e)}}).then(n=>{if(!n.ok)throw new Error(`Failed to fetch wishlist at ${i}`);return n.json()}).then(n=>{const o=[...n.itemids,s];return console.log("ITEMIDS",o),fetch(i,{method:"PUT",headers:{"Content-Type":"application/json",...l.headers(e)},body:JSON.stringify({itemids:o})}).then(C=>{if(!C.ok)throw new Error(`Failed to update wishlist at ${i}`);return t})})}).catch(t=>{throw console.error("Failed to create and update item:",t),t})}function Y(a){const t=a.target.checked;T.relay(a,"dark-mode",{checked:t})}function G(a){T.relay(a,"auth:message",["auth/signout"])}const P=class P extends O{render(){return r`
       <header>
             <a href="/" class="logo-container">
                 <svg class="icon">
@@ -8,19 +8,19 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
             </a>
             <div class="header-right">
                 <label
-                    @change=${W}>
+                    @change=${Y}>
                     <input type="checkbox" autocomplete="off" />
                     Dark mode
                 </label>
                 <a href="#" 
-                  @click=${J} 
+                  @click=${G} 
                   class="sign-out-link">
                   Sign out
                 </a>
 
             </div>
         </header>
-    `}static initializeOnce(){function i(t,a){t.classList.toggle("dark-mode",a)}document.body.addEventListener("dark-mode",t=>{var a;return i(t.currentTarget,(a=t.detail)==null?void 0:a.checked)})}};P.styles=h`
+    `}static initializeOnce(){function e(t,s){t.classList.toggle("dark-mode",s)}document.body.addEventListener("dark-mode",t=>{var s;return e(t.currentTarget,(s=t.detail)==null?void 0:s.checked)})}};P.styles=p`
     .sign-out-link {
       display: inline-block; /* Allows padding without breaking layout */
       color: var(--color-text-main); /* Fallback if variable not defined */
@@ -84,7 +84,7 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function $(e){return u({...e,state:!0,attribute:!1})}const A=class A extends O{render(){return r`
+ */function S(a){return u({...a,state:!0,attribute:!1})}const I=class I extends O{render(){return r`
       <div class="home-button-container">
         <a href="/app/wishlists">
           <svg class="icon">
@@ -92,7 +92,7 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
           </svg>
         </a>
       </div>
-    `}};A.styles=h`
+    `}};I.styles=p`
     .home-button-container {
       display: flex;
       align-items: center;
@@ -115,7 +115,7 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
     .home-button-container:hover .icon {
       transform: scale(1.2);
     }
-  `;let p=A;var Y=Object.defineProperty,G=Object.getOwnPropertyDescriptor,z=(e,i,t,a)=>{for(var s=a>1?void 0:a?G(i,t):i,n=e.length-1,o;n>=0;n--)(o=e[n])&&(s=(a?o(i,t,s):o(s))||s);return a&&s&&Y(i,t,s),s};const x=class x extends y{constructor(){super("dreamin:model"),this.itemid="",this.edit=!1}get item(){return this.model.item}attributeChangedCallback(i,t,a){super.attributeChangedCallback(i,t,a),console.log("ATTRIBUTE CHANGED",i,t,a),i==="item-id"&&t!==a&&a&&(console.log("Item Page:",a),this.dispatchMessage(["item/select",{itemid:a}]))}render(){const i=this.item;return console.log("RENDER",this.itemid,this.item),i?this.edit?r`
+  `;let m=I;var K=Object.defineProperty,q=Object.getOwnPropertyDescriptor,z=(a,e,t,s)=>{for(var i=s>1?void 0:s?q(e,t):e,n=a.length-1,o;n>=0;n--)(o=a[n])&&(i=(s?o(e,t,i):o(i))||i);return s&&i&&K(e,t,i),i};const b=class b extends y{constructor(){super("dreamin:model"),this.itemid="",this.edit=!1}get item(){return this.model.item}attributeChangedCallback(e,t,s){super.attributeChangedCallback(e,t,s),console.log("ATTRIBUTE CHANGED",e,t,s),e==="item-id"&&t!==s&&s&&(console.log("Item Page:",s),this.dispatchMessage(["item/select",{itemid:s}]))}render(){const e=this.item;return console.log("RENDER",this.itemid,this.item),e?this.edit?r`
           <home-button></home-button>
           <div class="link-container">
             <a href="/app/items/${this.itemid}" class="view-link">
@@ -169,22 +169,22 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
           </div>
           <div class="information-container">
             <span class="information-title">
-              <strong><span>${i.itemName}</span></strong>
+              <strong><span>${e.itemName}</span></strong>
             </span>
 
             <div class="information-image">
-              <img src="${i.itemImageUrl}" alt="${i.itemName}" />
+              <img src="${e.itemImageUrl}" alt="${e.itemName}" />
             </div>
 
             <div class="detail-container">
-              <p class="detail"><strong>Price: </strong>$<span>${(i.itemPrice||0).toFixed(2)}</span></p>
-              <p class="detail"><strong>Size: </strong><span>${i.itemSize}</span></p>
-              <p class="detail"><strong>Brand: </strong><span>${i.itemBrand}</span></p>
-              <p class="detail"><strong>Store: </strong><span>${i.itemStore}</span></p>
-              <p class="detail"><strong>Style: </strong><span>${i.itemStyle}</span></p>
-              <p class="detail"><strong>Type of Clothing: </strong><span>${i.itemType}</span></p>
+              <p class="detail"><strong>Price: </strong>$<span>${(e.itemPrice||0).toFixed(2)}</span></p>
+              <p class="detail"><strong>Size: </strong><span>${e.itemSize}</span></p>
+              <p class="detail"><strong>Brand: </strong><span>${e.itemBrand}</span></p>
+              <p class="detail"><strong>Store: </strong><span>${e.itemStore}</span></p>
+              <p class="detail"><strong>Style: </strong><span>${e.itemStyle}</span></p>
+              <p class="detail"><strong>Type of Clothing: </strong><span>${e.itemType}</span></p>
             </div>
-          </div>`:r``}_handleSubmit(i){this.dispatchMessage(["item/save",{itemid:this.itemid,item:i.detail,onSuccess:()=>k.dispatch(this,"history/navigate",{href:`/app/items/${this.itemid}`}),onFailure:t=>console.log("ERROR:",t)}])}};x.uses=m({"mu-form":I.Element,"home-button":p}),x.styles=h`
+          </div>`:r``}_handleSubmit(e){this.dispatchMessage(["item/save",{itemid:this.itemid,item:e.detail,onSuccess:()=>k.dispatch(this,"history/navigate",{href:`/app/items/${this.itemid}`}),onFailure:t=>console.log("ERROR:",t)}])}};b.uses=h({"mu-form":F.Element,"home-button":m}),b.styles=p`
     .link-container {
       display: flex;
       justify-content: center;
@@ -303,11 +303,11 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
       font-size: 30px;
       margin: 5px 0;
     }
-  `;let d=x;z([u({attribute:"item-id"})],d.prototype,"itemid",2);z([u({type:Boolean})],d.prototype,"edit",2);z([$()],d.prototype,"item",1);const b=class b extends y{constructor(){super("dreamin:model")}render(){return r`
+  `;let d=b;z([u({attribute:"item-id"})],d.prototype,"itemid",2);z([u({type:Boolean})],d.prototype,"edit",2);z([S()],d.prototype,"item",1);const x=class x extends y{constructor(){super("dreamin:model")}render(){return r`
       <div class="container">
         <p>Hi Hugh</p>
       </div>
-    `}};b.uses=m({}),b.styles=h`
+    `}};x.uses=h({}),x.styles=p`
     .container {
       display: flex;
       justify-content: center;
@@ -316,17 +316,17 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
       font-family: 'Arial', sans-serif;
       font-size: 24px;
     }
-  `;let N=b;var K=Object.defineProperty,q=Object.getOwnPropertyDescriptor,Q=(e,i,t,a)=>{for(var s=q(i,t),n=e.length-1,o;n>=0;n--)(o=e[n])&&(s=o(i,t,s)||s);return s&&K(i,t,s),s};const v=class v extends y{get wishlistList(){return this.model.wishlistList||[]}constructor(){super("dreamin:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["wishlistList/select"])}render(){const i=t=>{const{name:a,budget:s,imageUrl:n,listid:o}=t;return r`
+  `;let N=x;var Q=Object.defineProperty,X=Object.getOwnPropertyDescriptor,Z=(a,e,t,s)=>{for(var i=X(e,t),n=a.length-1,o;n>=0;n--)(o=a[n])&&(i=o(e,t,i)||i);return i&&Q(e,t,i),i};const v=class v extends y{get wishlistList(){return this.model.wishlistList||[]}constructor(){super("dreamin:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["wishlistList/select"])}render(){const e=t=>{const{name:s,budget:i,imageUrl:n,listid:o}=t;return r`
         <a href="/app/wishlists/${o}">
           <div class="wishlist">
             <h2 class="wishlist-title">
-              <span>${a}</span>
+              <span>${s}</span>
             </h2>
             <div class="wishlist-image">
-              <img src="${n}" alt="${a}" />
+              <img src="${n}" alt="${s}" />
             </div>
             <div class="wishlist-budget">
-              <span>$${String(s.toFixed(2))}</span>
+              <span>$${String(i.toFixed(2))}</span>
             </div>
           </div>
         </a>
@@ -335,7 +335,7 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
         <h1>Wishlists</h1>
       </div>
       <div class="wishlist-container">
-        ${this.wishlistList.map(i)}
+        ${this.wishlistList.map(e)}
       </div>
       <div class="form-container">
         <h2>Create a Wishlist</h2>
@@ -354,7 +354,7 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
           </label>
         </mu-form>
       </div>
-    `}_handleSubmit(i){this.dispatchMessage(["wishlist/create",{wishlist:i.detail,onSuccess:()=>{this.dispatchMessage(["wishlistList/select"]),k.dispatch(this,"history/navigate",{href:"/app/wishlists"})},onFailure:t=>console.log("ERROR:",t)}])}};v.uses=m({"home-button":p}),v.styles=h`
+    `}_handleSubmit(e){this.dispatchMessage(["wishlist/create",{wishlist:e.detail,onSuccess:()=>{this.dispatchMessage(["wishlistList/select"]),k.dispatch(this,"history/navigate",{href:"/app/wishlists"})},onFailure:t=>console.log("ERROR:",t)}])}};v.uses=h({"home-button":m}),v.styles=p`
     .title-container {
       display: flex;
       background-color: var(--color-background-page-alt);
@@ -481,21 +481,21 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
       border-color: #0078d4; /* Optional focus color */
       box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
     }
-  `;let g=v;Q([$()],g.prototype,"wishlistList");var X=Object.defineProperty,Z=Object.getOwnPropertyDescriptor,S=(e,i,t,a)=>{for(var s=a>1?void 0:a?Z(i,t):i,n=e.length-1,o;n>=0;n--)(o=e[n])&&(s=(a?o(i,t,s):o(s))||s);return a&&s&&X(i,t,s),s};const w=class w extends y{constructor(){super("dreamin:model"),this.listid="",this.edit=!1}get wishlist(){return this.model.wishlist}get items(){return this.model.itemList}attributeChangedCallback(i,t,a){super.attributeChangedCallback(i,t,a),console.log("ATTRIBUTE CHANGED",i,t,a),i==="list-id"&&t!==a&&a&&(console.log("Wishlist Page:",a),this.dispatchMessage(["wishlist/select",{listid:a}]),this.dispatchMessage(["wishlistItems/select",{listid:a}]))}render(){const i=this.wishlist,t=this.items;console.log("RENDER",this.listid,this.wishlist);const a=s=>r`
-                <a href="/app/items/${s.itemid}">
+  `;let g=v;Z([S()],g.prototype,"wishlistList");var H=Object.defineProperty,V=Object.getOwnPropertyDescriptor,$=(a,e,t,s)=>{for(var i=s>1?void 0:s?V(e,t):e,n=a.length-1,o;n>=0;n--)(o=a[n])&&(i=(s?o(e,t,i):o(i))||i);return s&&i&&H(e,t,i),i};const w=class w extends y{constructor(){super("dreamin:model"),this.listid="",this.edit=!1}get wishlist(){return this.model.wishlist}get items(){return this.model.itemList}attributeChangedCallback(e,t,s){super.attributeChangedCallback(e,t,s),console.log("ATTRIBUTE CHANGED",e,t,s),e==="list-id"&&t!==s&&s&&(console.log("Wishlist Page:",s),this.dispatchMessage(["wishlist/select",{listid:s}]),this.dispatchMessage(["wishlistItems/select",{listid:s}]))}render(){const e=this.wishlist,t=this.items;console.log("RENDER",this.listid,this.wishlist);const s=i=>r`
+                <a href="/app/items/${i.itemid}">
                     <div class="item-container">
                         <h2 class="itemName">
-                            <span>${s.itemName}</span>
+                            <span>${i.itemName}</span>
                         </h2>
                         <div class="itemImageUrl">
-                            <img src="${s.itemImageUrl||"/default-image.jpg"}" alt="${s.itemName}" />
+                            <img src="${i.itemImageUrl||"/default-image.jpg"}" alt="${i.itemName}" />
                         </div>
                         <p class="itemPrice">
-                            Price: <span slot="product-price">$${s.itemPrice.toFixed(2)}</span>
+                            Price: <span slot="product-price">$${i.itemPrice.toFixed(2)}</span>
                         </p>
                     </div>
                 </a>
-            `;return i?this.edit?r`
+            `;return e?this.edit?r`
                     <home-button></home-button>
                     <div class="link-container">
                         <a href="/app/wishlists/${this.listid}" class="view-link">
@@ -520,7 +520,44 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
                     </div>
 
                     <div class="items-container">
-                        ${t?t.map(a):r`<p>No items in this wishlist</p>`}
+                        ${t?t.map(s):r`<p>No items in this wishlist</p>`}
+                    </div>
+                    <div class="form-container">
+                        <h2>Create a Wishlist</h2>
+                        <mu-form @mu-form:submit=${this._handleSubmit}>
+                            <label>
+                                <span>Name</span>
+                                <input name="itemName" />
+                            </label>
+                            <label>
+                                <span>Price</span>
+                                <input name="itemPrice" />
+                            </label>
+                            <label>
+                                <span>Size</span>
+                                <input name="itemSize" />
+                            </label>
+                            <label>
+                                <span>Brand</span>
+                                <input name="itemBrand" />
+                            </label>
+                            <label>
+                                <span>Store</span>
+                                <input name="itemStore" />
+                            </label>
+                            <label>
+                                <span>Style</span>
+                                <input name="itemStyle" />
+                            </label>
+                            <label>
+                                <span>Type</span>
+                                <input name="itemType" />
+                            </label>
+                            <label>
+                                <span>Image</span>
+                                <input name="itemImageUrl" />
+                            </label>
+                        </mu-form>
                     </div>
                 `:r`
                     <home-button></home-button>
@@ -532,20 +569,57 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
                     <div class="tool-bar">
                         <div class="title-container">
                             <h1>
-                                <span>${i.name}</span>
+                                <span>${e.name}</span>
                             </h1>
                         </div>
 
                         <div class="budget-container">
                             <h1>Budget:</h1>
-                            <span>${i.budget.toFixed(2)}</span>
+                            <span>${e.budget.toFixed(2)}</span>
                         </div>
                     </div>
 
                     <div class="items-container">
-                        ${t?t.map(a):r`<p>No items in this wishlist</p>`}
+                        ${t?t.map(s):r`<p>No items in this wishlist</p>`}
                     </div>
-                `:r``}_handleSubmit(i){this.dispatchMessage(["wishlist/save",{listid:this.listid,wishlist:i.detail,onSuccess:()=>k.dispatch(this,"history/navigate",{href:`/app/wishlists/${this.listid}`}),onFailure:t=>console.log("ERROR:",t)}])}};w.uses=m({"home-button":p}),w.styles=h`
+                    <div class="form-container">
+                        <h2>Create an Item</h2>
+                        <mu-form @mu-form:submit=${this._handleSubmit}>
+                            <label>
+                                <span>Name</span>
+                                <input name="itemName" />
+                            </label>
+                            <label>
+                                <span>Price</span>
+                                <input name="itemPrice" />
+                            </label>
+                            <label>
+                                <span>Size</span>
+                                <input name="itemSize" />
+                            </label>
+                            <label>
+                                <span>Brand</span>
+                                <input name="itemBrand" />
+                            </label>
+                            <label>
+                                <span>Store</span>
+                                <input name="itemStore" />
+                            </label>
+                            <label>
+                                <span>Style</span>
+                                <input name="itemStyle" />
+                            </label>
+                            <label>
+                                <span>Type</span>
+                                <input name="itemType" />
+                            </label>
+                            <label>
+                                <span>Image</span>
+                                <input name="itemImageUrl" />
+                            </label>
+                        </mu-form>
+                    </div>
+                `:r``}_handleSubmit(e){this.dispatchMessage(["item/create",{listid:this.listid,item:e.detail,onSuccess:()=>{this.dispatchMessage(["wishlist/select",{listid:this.listid}]),k.dispatch(this,"history/navigate",{href:`/app/wishlists/${this.listid}`})},onFailure:t=>console.log("ERROR:",t)}])}};w.uses=h({"home-button":m}),w.styles=p`
         .link-container {
             display: flex;
             justify-content: center;
@@ -704,14 +778,62 @@ import{a as c,r as O,x as r,i as h,e as C,V as y,d as m,f as I,h as k,s as R,_ a
             align-items: center;
             justify-content: center;
         }
-    `;let l=w;S([u({attribute:"list-id"})],l.prototype,"listid",2);S([u({type:Boolean})],l.prototype,"edit",2);S([$()],l.prototype,"wishlist",1);S([$()],l.prototype,"items",1);const H=[{auth:"protected",path:"/app/items/:id",view:e=>r`
-      <item-view item-id=${e.id}></tour-view>
-    `},{auth:"protected",path:"/app/items/:id/edit",view:e=>r`
-      <item-view edit item-id=${e.id}></tour-view>
-    `},{auth:"protected",path:"/app/wishlists/:id",view:e=>r`
-      <wishlist-view list-id=${e.id}></wishlist-view>
-    `},{auth:"protected",path:"/app/wishlists/:id/edit",view:e=>r`
-      <wishlist-view edit list-id=${e.id}></wishlist-view>
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto; /* Adds spacing around the form */
+        }
+
+        .form-container h2 {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 28px;
+            color: var(--color-text-main);
+            margin-bottom: 1rem; /* Adds spacing between the title and form */
+        }
+
+        mu-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Adds spacing between form fields */
+            width: 100%;
+            max-width: 400px; /* Optional max-width for form */
+            background: white; /* Optional background for form */
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        input {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #0078d4; /* Optional focus color */
+            box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
+        }
+    `;let c=w;$([u({attribute:"list-id"})],c.prototype,"listid",2);$([u({type:Boolean})],c.prototype,"edit",2);$([S()],c.prototype,"wishlist",1);$([S()],c.prototype,"items",1);const tt=[{auth:"protected",path:"/app/items/:id",view:a=>r`
+      <item-view item-id=${a.id}></tour-view>
+    `},{auth:"protected",path:"/app/items/:id/edit",view:a=>r`
+      <item-view edit item-id=${a.id}></tour-view>
+    `},{auth:"protected",path:"/app/wishlists/:id",view:a=>r`
+      <wishlist-view list-id=${a.id}></wishlist-view>
+    `},{auth:"protected",path:"/app/wishlists/:id/edit",view:a=>r`
+      <wishlist-view edit list-id=${a.id}></wishlist-view>
     `},{auth:"protected",path:"/app/wishlists",view:()=>r`
       <wishlists-view></wishlists-view>
-    `},{path:"/",redirect:"/app/wishlists"}];class V extends O{render(){return r`<mu-switch></mu-switch>`}connectedCallback(){super.connectedCallback(),f.initializeOnce()}}m({"mu-auth":c.Provider,"mu-history":k.Provider,"mu-store":class extends R.Provider{constructor(){super(U,_,"dreamin:auth")}},"mu-switch":class extends T.Element{constructor(){super(H,"dreamin:history","dreamin:auth")}},"dreamin-app":V,"dreamcart-header":f,"item-view":d,"home-view":N,"wishlists-view":g,"wishlist-view":l});
+    `},{path:"/",redirect:"/app/wishlists"}];class et extends O{render(){return r`<mu-switch></mu-switch>`}connectedCallback(){super.connectedCallback(),f.initializeOnce()}}h({"mu-auth":l.Provider,"mu-history":k.Provider,"mu-store":class extends U.Provider{constructor(){super(M,_,"dreamin:auth")}},"mu-switch":class extends R.Element{constructor(){super(tt,"dreamin:history","dreamin:auth")}},"dreamin-app":et,"dreamcart-header":f,"item-view":d,"home-view":N,"wishlists-view":g,"wishlist-view":c});

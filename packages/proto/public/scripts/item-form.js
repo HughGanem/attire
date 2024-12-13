@@ -166,7 +166,7 @@ export class ItemFormElement extends HTMLElement {
             this.form.init = updatedData;
     
             fetch(url, {
-                method: "GET",  // Assuming you need to GET the current list first
+                method: "GET",
                 headers: {
                     ...this.authorization,
                     "Content-Type": "application/json"
@@ -174,10 +174,7 @@ export class ItemFormElement extends HTMLElement {
             })
             .then(response => response.json())
             .then(data => {
-                // Assuming the existing itemids are stored in data.itemids
-                const updatedItemIds = [...data.itemids, newitemid];  // Append newitemid to existing itemids
-            
-                // Now send the updated list back
+                const updatedItemIds = [...data.itemids, newitemid];
                 return fetch(url, {
                     method: "PUT",
                     headers: {
@@ -190,7 +187,7 @@ export class ItemFormElement extends HTMLElement {
             .then(response => response.json())
             .then(updatedItemIds => {
                 console.log('Updated itemids:', updatedItemIds);
-                window.location.reload();  // Reload the page after update
+                window.location.reload();
             })
             .catch(error => console.error('Error updating itemids:', error));
         })

@@ -28,6 +28,20 @@ export default function update(
           if (onFailure) onFailure(error);
         });
       break;
+    case "item/create":
+      createAndUpdateItem(message[1], user)
+        .then((item) =>
+          apply((model) => ({ ...model, item }))
+        )
+        .then(() => {
+          const { onSuccess } = message[1];
+          if (onSuccess) onSuccess();
+        })
+        .catch((error: Error) => {
+          const { onFailure } = message[1];
+          if (onFailure) onFailure(error);
+        });
+      break;
     case "wishlist/save":
       saveWishlist(message[1], user)
         .then((wishlist) =>
@@ -132,13 +146,12 @@ function selectWishlist(msg: { listid: string }, user: Auth.User) {
 }
 
 function selectWishlistItems(msg: { listid: string }, user: Auth.User) {
-  return selectWishlist(msg, user)  // Fetch the wishlist
+  return selectWishlist(msg, user)
     .then((wishlist) => {
       if (wishlist && wishlist.itemids) {
-        // Loop through each itemid in the wishlist and fetch the item
         return Promise.all(
           wishlist.itemids.map((itemid) => 
-            selectItem({ itemid: itemid }, user)  // Fetch each item
+            selectItem({ itemid: itemid }, user)
           )
         );
       }
@@ -146,7 +159,7 @@ function selectWishlistItems(msg: { listid: string }, user: Auth.User) {
     })
     .then((items) => {
       console.log("Items:", items);
-      return items as Item[];  // Return the list of items
+      return items as Item[];
     });
 }
 
@@ -230,5 +243,61 @@ function createWishlist(
     .then((json: unknown) => {
       if (json) return json as Wishlist;
       return undefined;
+    });
+}
+
+function createAndUpdateItem(msg: { listid: string; item: Item }, user: Auth.User) {
+  return fetch(`/api/items/`, {
+    method: "POST",
+    headers: {
+      ...Auth.headers(user),
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(msg.item),
+  })
+    .then((response: Response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to create item: ${response.status} - ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((createdItem: Item) => {
+      const newItemId = createdItem.itemid;
+
+      const url = `/api/wishlists/${msg.listid}`;
+      return fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...Auth.headers(user),
+        },
+      })
+        .then((response: Response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to fetch wishlist at ${url}`);
+          }
+          return response.json();
+        })
+        .then((data: Wishlist) => {
+          const updatedItemIds = [...data.itemids, newItemId];
+          console.log("ITEMIDS", updatedItemIds)
+          return fetch(url, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              ...Auth.headers(user),
+            },
+            body: JSON.stringify({ itemids: updatedItemIds }),
+          }).then((response: Response) => {
+            if (!response.ok) {
+              throw new Error(`Failed to update wishlist at ${url}`);
+            }
+            return createdItem;
+          });
+        });
+    })
+    .catch((error: Error) => {
+      console.error(`Failed to create and update item:`, error);
+      throw error;
     });
 }

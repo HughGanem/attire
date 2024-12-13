@@ -102,7 +102,6 @@ export class ItemViewElement extends View<Model, Msg> {
             </mu-form>
           </div>
         `
-
       } else {
         return html`
           <home-button></home-button>

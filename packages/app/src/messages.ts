@@ -10,6 +10,12 @@ export type Msg =
       onFailure?: (err: Error) => void;
     }
   ]
+  | ["item/create", {
+    item: Item;
+    listid: string;
+    onSuccess?: () => void;
+    onFailure?: (err: Error) => void;
+  }]
   | ["wishlistList/select"]
   | ["wishlist/select", { listid: string}]
   | ["wishlist/save",
